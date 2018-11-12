@@ -12,6 +12,7 @@ namespace Db
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new MessageConfiguration());
         }
 
         public DbSet<Message> Messages { get; set; }
