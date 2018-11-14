@@ -1,0 +1,44 @@
+@using Microsoft.EntityFrameworkCore;
+@using System.Linq;
+@using Db
+@model object
+
+@{
+    ViewBag.Title = "EF Core Messages Table";
+    Layout = "_Layout";
+}
+
+<h2>Messages (@ViewBag.messages.Count)</h2>
+
+<table class="table table-bordered table-striped table-hover">
+    <tr>
+        <th>ID</th>
+        <th>Message</th>
+        <th>Date</th>
+    </tr>
+    @foreach (Message x in ViewBag.messages)
+    {
+        <tr>
+            <td>@x.MessageId</td>
+            <td>@x.MessageText</td>
+            <td>@x.DateCreated.ToString("yyyy-mm-dd hh:mm tt")</td>
+        </tr>
+    }
+</table>
+
+@using (Html.BeginForm("Index", "Message", FormMethod.Post, new {/*Extra params or something*/}))
+{
+    if (ViewBag.info != "")
+    {
+        <div class="alert alert-info">@ViewBag.info</div>
+    }
+
+    <div class="form-group">
+        <label>Add Message</label>
+        <input class="form-control" name="message" placeholder="Your Content Here"/>
+    </div>
+
+    <p>
+        <button type="submit" class="btn btn-primary">Add Message</button>
+    </p>
+}
