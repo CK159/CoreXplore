@@ -4,10 +4,18 @@ namespace Db
 {
     public class Dbc : DbContext
     {
+        /*public Dbc()
+        {
+        }*/
+        
+        public Dbc(DbContextOptions<Dbc> options) : base(options)
+        {
+        }
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-            optionsBuilder.UseSqlServer(@"Server=.\SQLEXPRESS;Database=CoreXplore;Integrated Security=true;");
+            //Connection string now configured through Startup.cs
+            //optionsBuilder.UseSqlServer(@"Server=.\SQLEXPRESS;Database=CoreXplore;Integrated Security=true;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

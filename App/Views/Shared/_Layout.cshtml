@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@inject Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnv
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -33,6 +35,7 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-area="" asp-controller="Message" asp-action="Index">Message</a></li>
                 </ul>
             </div>
         </div>
@@ -44,6 +47,9 @@
         @RenderBody()
         <hr />
         <footer>
+            <div class="pull-right">
+                @(Context.Request.IsLocal() ? "Local" : "Remote") - @hostingEnv.EnvironmentName
+            </div>
             <p>&copy; 2018 - App</p>
         </footer>
     </div>

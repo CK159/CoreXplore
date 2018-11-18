@@ -1,16 +1,21 @@
-using System.Collections.Generic;
 using System.Linq;
 using Db;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace App.Controllers
 {
     public class MessageController : Controller
     {
+        readonly Dbc context;
+ 
+        public MessageController(Dbc context)
+        {
+            this.context = context;
+        }
+        
         public IActionResult Index()
         {
-            ViewBag.messages = new Dbc().Messages.OrderBy(x => x.DateCreated).ToList();
+            ViewBag.messages = context.Messages.OrderBy(x => x.DateCreated).ToList();
             ViewBag.info = "";
 
             return View();
@@ -19,23 +24,22 @@ namespace App.Controllers
         [HttpPost]
         public IActionResult Index(string message)
         {
-            Dbc dbc = new Dbc();
             if ((message?.Trim() ?? "") == "")
             {
                 ViewBag.info = "Enter a message.";
             }
             else
             {
-                dbc.Messages.Add(new Message
+                context.Messages.Add(new Message
                 {
                     MessageText = message
                 });
-                dbc.SaveChanges();
+                context.SaveChanges();
 
                 ViewBag.info = $"Message '{message}' saved.";
             }
 
-            ViewBag.messages = new Dbc().Messages.OrderBy(x => x.DateCreated).ToList();
+            ViewBag.messages = context.Messages.OrderBy(x => x.DateCreated).ToList();
 
             return View();
         }
