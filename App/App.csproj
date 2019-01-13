@@ -7,10 +7,15 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.App" />
         <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+        <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="1.0.172" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Db\Db.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="wwwroot\lib" />
     </ItemGroup>
 
 </Project>
