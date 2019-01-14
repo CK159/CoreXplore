@@ -2,5 +2,6 @@ obj/
 bin/
 **/wwwroot/lib/
 .idea/
+.vs/
 *.sln.iml
 *.DotSettings.user
