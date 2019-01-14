@@ -4,7 +4,7 @@
   "libraries": [
     {
       "library": "jquery@3.3.1",
-      "destination": "wwwroot\\lib\\jquery",
+      "destination": "wwwroot/lib/jquery",
       "files": [
         "jquery.js",
         "jquery.min.js",
@@ -14,15 +14,15 @@
     },
     {
       "library": "twitter-bootstrap@3.4.0",
-      "destination": "wwwroot\\lib\\bootstrap"
+      "destination": "wwwroot/lib/bootstrap"
     },
     {
       "library": "jquery-validation-unobtrusive@3.2.11",
-      "destination": "wwwroot\\lib\\jquery-validation-unobtrusive"
+      "destination": "wwwroot/lib/jquery-validation-unobtrusive"
     },
     {
       "library": "jquery-validate@1.19.0",
-      "destination": "wwwroot\\lib\\jquery-validation",
+      "destination": "wwwroot/lib/jquery-validation",
       "files": [
         "jquery.validate.js",
         "jquery.validate.min.js"
@@ -30,11 +30,11 @@
     },
     {
       "library": "font-awesome@4.7.0",
-      "destination": "wwwroot\\lib\\font-awesome"
+      "destination": "wwwroot/lib/font-awesome"
     },
     {
-      "library": "ionicons@4.4.8",
-      "destination": "wwwroot\\lib\\ionicons",
+      "library": "ionicons@2.0.1",
+      "destination": "wwwroot/lib/ionicons",
       "files": [
         "css/ionicons.css",
         "css/ionicons.min.css",
@@ -46,7 +46,7 @@
     },
     {
       "library": "admin-lte@2.4.8",
-      "destination": "wwwroot\\lib\\admin-lte",
+      "destination": "wwwroot/lib/admin-lte",
       "files": [
         "css/AdminLTE.css",
         "css/AdminLTE.min.css",
@@ -58,6 +58,74 @@
         "js/pages/dashboard.js",
         "js/pages/dashboard2.js"
       ]
+    },
+    {
+      "library": "jqueryui@1.12.1",
+      "destination": "wwwroot/lib/jquery-ui",
+      "files": [
+        "jquery-ui.js",
+        "jquery-ui.min.js"
+      ]
+    },
+    {
+      "library": "bootstrap3-wysiwyg@0.3.3",
+      "destination": "wwwroot/lib/bootstrap3-wysiwyg",
+      "files": [
+        "bootstrap3-wysihtml5.all.js",
+        "bootstrap3-wysihtml5.all.min.js",
+        "bootstrap3-wysihtml5.css",
+        "bootstrap3-wysihtml5.min.css"
+      ]
+    },
+    {
+      "library": "moment.js@2.23.0",
+      "destination": "wwwroot/lib/moment",
+      "files": [
+        "moment.js",
+        "moment.min.js"
+      ]
+    },
+    {
+      "library": "bootstrap-daterangepicker@3.0.3",
+      "destination": "wwwroot/lib/bootstrap-daterangepicker",
+      "files": [
+        "daterangepicker.css",
+        "daterangepicker.min.css",
+        "daterangepicker.js",
+        "daterangepicker.min.js"
+      ]
+    },
+    {
+      "library": "jQuery-Knob@1.2.13",
+      "destination": "wwwroot/lib/jquery-knob"
+    },
+    {
+      "library": "jquery-sparklines@2.1.2",
+      "destination": "wwwroot/lib/jquery-sparklines"
+    },
+    {
+      "library": "raphael@2.2.7",
+      "destination": "wwwroot/lib/raphael"
+    },
+    {
+      "library": "morris.js@0.5.1",
+      "destination": "wwwroot/lib/morris.js"
+    },
+    {
+      "library": "bootstrap-datepicker@1.8.0",
+      "destination": "wwwroot/lib/bootstrap-datepicker",
+      "files": [
+        "css/bootstrap-datepicker.css",
+        "css/bootstrap-datepicker.min.css",
+        "css/bootstrap-datepicker3.css",
+        "css/bootstrap-datepicker3.min.css",
+        "js/bootstrap-datepicker.js",
+        "js/bootstrap-datepicker.min.js"
+      ]
+    },
+    {
+      "library": "Chart.js@2.7.3",
+      "destination": "wwwroot/lib/chart.js"
     }
   ]
 }
