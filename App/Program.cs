@@ -19,6 +19,7 @@ namespace App
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseKestrel(k => k.AddServerHeader = false)
                 .UseStartup<Startup>();
     }
 }

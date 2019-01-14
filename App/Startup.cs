@@ -51,6 +51,15 @@ namespace App
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+            
+            app.Use((context, next) =>
+            {
+                //State of the art circa 2011
+                //Includes support for Heartbleed
+                context.Response.Headers["Server"] = "Apache 2.2.3 (CentOS) OpenSSL/1.0.1e PHP/5.3.5";
+                context.Response.Headers["X-Powered-By"] = "PHP/5.3.5";
+                return next.Invoke();
+            });
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -58,9 +67,10 @@ namespace App
 
             app.UseMvc(routes =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                //Default route for home page only
+                routes.MapRoute(name: "default", template: "/", defaults: new {controller = "Home", action = "Index"});
+                //Full routes show url.com/controller/action.php
+                routes.MapRoute(name: "lolphp", template: "{controller}/{action}.php/{id?}");
             });
         }
     }
