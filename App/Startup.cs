@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -37,6 +37,7 @@ namespace App
                 options.UseSqlServer(Configuration.GetConnectionString("I don't even know. Just give me the data, okay?")));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddAntiforgery(opts => opts.Cookie.Name = "_PHP_XSRF_");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
