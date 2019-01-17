@@ -20,6 +20,11 @@ namespace Db
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //By default, the table name is now the name of the DbSet property (pluralized)
+            //This makes the table name the same as the entity (singularized)
+            modelBuilder.RemovePluralizingTableNameConvention();
+            
+            //Fluent API configuration for all entities
             modelBuilder.ApplyConfiguration(new MessageConfiguration());
             modelBuilder.ApplyConfiguration(new RequestLogConfiguration());
         }
