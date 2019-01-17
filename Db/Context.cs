@@ -21,8 +21,10 @@ namespace Db
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new MessageConfiguration());
+            modelBuilder.ApplyConfiguration(new RequestLogConfiguration());
         }
 
         public DbSet<Message> Messages { get; set; }
+        public DbSet<RequestLog> RequestLogs { get; set; }
     }
 }

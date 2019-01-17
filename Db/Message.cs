@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Db
 {
-    class MessageConfiguration : IEntityTypeConfiguration<Message>
+    internal class MessageConfiguration : IEntityTypeConfiguration<Message>
     {
         public void Configure(EntityTypeBuilder<Message> builder)
         {

@@ -4,14 +4,16 @@ using Db;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Db.Migrations
 {
     [DbContext(typeof(Dbc))]
-    partial class DbcModelSnapshot : ModelSnapshot
+    [Migration("20190117041629_RequestLog")]
+    partial class RequestLog
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,10 +81,7 @@ namespace Db.Migrations
                         .HasMaxLength(64)
                         .HasDefaultValue("");
 
-                    b.Property<string>("RequestText")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValue("");
+                    b.Property<string>("RequestText");
 
                     b.Property<string>("ResponseContentType")
                         .IsRequired()

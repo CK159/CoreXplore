@@ -1,0 +1,9 @@
+For the next time I change something or just forget how it works:
+
+Create a new migration:
+    Open terminal from Db project!
+    dotnet ef migrations add MigrationName --startup-project "../App"
+    
+Update database - Apply migrations
+    Open terminal from Db project!
+    dotnet ef database update --startup-project "../App"
