@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using System.IO;
 using Microsoft.AspNetCore.Http;
@@ -45,9 +46,10 @@ namespace App.Util
         public async Task Invoke(HttpContext context, Dbc dbContext)
         {
             Stopwatch timer = Stopwatch.StartNew();
+            DateTime requestBegin = DateTime.Now;
             
             //Log initial request data
-            RequestLog log = await LogRequest(context.Request, dbContext);
+            RequestLog log = await LogRequest(context.Request, requestBegin, dbContext);
 
             Stream originalRespBody = context.Response.Body;
             
@@ -70,13 +72,15 @@ namespace App.Util
             }
         }
     
-        private async Task<RequestLog> LogRequest(HttpRequest req, Dbc dbContext)
+        private async Task<RequestLog> LogRequest(HttpRequest req, DateTime requestBegin, Dbc dbContext)
         {
             RequestLog log = new RequestLog
             {
+                RequestBegin = requestBegin,
                 URL = req.GetDisplayUrl(),
                 RequestMethod = req.Method,
                 RequestContentType = req.Headers.GetValueOrDefault("Content-Type", ""),
+                RequestSize = (int)(req.ContentLength ?? 0),
                 IP = req.HttpContext.Connection.RemoteIpAddress.ToString(),
                 UserAgent = req.Headers.GetValueOrDefault("User-Agent", ""),
                 Referer = req.Headers.GetValueOrDefault("Referer", "")
