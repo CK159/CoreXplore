@@ -45,6 +45,7 @@ namespace Db
         public string URL { get; set; }
         public string RequestMethod { get; set; }
         public string RequestContentType { get; set; }
+        //TODO public int RequestSize { get; set; }
         public string RequestText { get; set; }
         public int ResponseStatus { get; set; }
         public string ResponseContentType { get; set; }
