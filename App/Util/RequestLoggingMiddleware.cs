@@ -9,9 +9,9 @@ using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Http.Internal;
 
 /* Reading the request body: A 3-step process
- * 1. Get a reference to the request body stream at the beginning of the stream and allow resetting back to beginning
+ * 1. Allow resetting the body stream back to beginning
  * 2. Read the body stream
- * 3. Set body stream back to beginning using initial reference
+ * 3. Set body stream back to beginning
  */
 
 /* Reading the response body: A 6-step process
@@ -86,8 +86,6 @@ namespace App.Util
                 Referer = req.Headers.GetValueOrDefault("Referer", "")
             };
 
-            //Capture request body stream at start position
-            Stream originalReqBody = req.Body;
             //Allow resetting stream back to start after reading it
             req.EnableRewind();
 
@@ -99,7 +97,7 @@ namespace App.Util
                 log.RequestText = requestAsText.Left(2048);
 
             //Reset the request stream back to the beginning
-            req.Body = originalReqBody;
+            req.Body.Seek(0, SeekOrigin.Begin);
             
             dbContext.RequestLogs.Add(log);
             await dbContext.SaveChangesAsync();
