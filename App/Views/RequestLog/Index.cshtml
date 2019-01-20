@@ -1,0 +1,61 @@
+@using Microsoft.EntityFrameworkCore;
+@using System.Linq;
+@using Db
+@model object
+
+@{
+    ViewBag.Title = "Site Request Log";
+    Layout = "_DashboardLayout";
+}
+
+@section PageHead
+{
+	<h1>
+		Site Request Log
+		<small>View, Mutate, Implicate, Expunge</small>
+	</h1>
+	<ol class="breadcrumb">
+		<li>Home</li>
+		<li><i class="fa fa-dashboard"></i> Dashboard</li>
+		<li><i class="fa fa-gear"></i> Admin</li>
+		<li class="active">Request Log</li>
+	</ol>
+}
+
+<h2>999+ Requests logged</h2>
+
+<table class="table table-bordered table-striped table-hover">
+    <tr>
+        <th>Date</th>
+        <th>RequestLogId</th>
+        <th>IP</th>
+        <th>URL</th>
+        <th>Request</th>
+        <th>Response</th>
+    </tr>
+    @*@foreach (Message x in ViewBag.messages)
+    {
+        <tr>
+            <td>@x.MessageId</td>
+            <td>@x.MessageText</td>
+            <td>@x.DateCreated.ToString("yyyy-MM-dd hh:mm tt")</td>
+        </tr>
+    }*@
+</table>
+
+@*@using (Html.BeginForm("Index", "Message", FormMethod.Post, new {/*Extra params or something*/}))
+{
+    if (ViewBag.info != "")
+    {
+        <div class="alert alert-info">@ViewBag.info</div>
+    }
+
+    <div class="form-group">
+        <label>Add Message</label>
+        <input class="form-control" name="message" placeholder="Your Content Here"/>
+    </div>
+
+    <p>
+        <button type="submit" class="btn btn-primary">Add Message</button>
+    </p>
+}*@

@@ -30,7 +30,18 @@ namespace Db
     public class RequestLog
     {
         public int RequestLogId { get; set; }
+        /// <summary>
+        /// The database server time the entry was recorded
+        /// </summary>
         public DateTime DateCreated { get; set; }
+        /*/// <summary>
+        /// The web server time the request was started
+        /// </summary>
+        //TODO: public DateTime RequestBegin { get; set; }
+        /// <summary>
+        /// The web server time the request was completed
+        /// </summary>
+        //TODO: public DateTime? RequestEnd { get; set; }*/
         public string URL { get; set; }
         public string RequestMethod { get; set; }
         public string RequestContentType { get; set; }
