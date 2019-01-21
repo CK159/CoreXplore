@@ -1,10 +1,10 @@
 AdminLTE > Razor MVC
-Log all server requests, URL, request data, response code header
 Admin page for viewing Request Log
 Allow editing Request Log
 ASP.NET Core Identity
 Find out why Db isn't targeting netstandard and change if needed
 .editorconfig file
 
+DONE - Log all server requests, URL, request data, response code header
 DONE - Switch to PHP
 DONE - Libman for all client side files
