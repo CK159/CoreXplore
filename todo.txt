@@ -3,9 +3,9 @@ Admin page for viewing Request Log
 Allow editing Request Log
 ASP.NET Core Identity
     https://github.com/yarsiemanym/Microsoft.AspNetCore.Identity.AspNetMembershipAdapter
-Find out why Db isn't targeting netstandard and change if needed
 .editorconfig file
 
+DONE - Find out why Db isn't targeting netstandard and change if needed
 DONE - Log all server requests, URL, request data, response code header
 DONE - Switch to PHP
 DONE - Libman for all client side files
