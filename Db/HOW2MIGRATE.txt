@@ -1,16 +1,1 @@
-For the next time I change something or just forget how it works:
-
-Create a new migration:
-    Open terminal from Db project!
-    dotnet ef migrations add MigrationName --startup-project "../App"
-    
-Update database - Apply migrations
-    Open terminal from Db project!
-    dotnet ef database update --startup-project "../App"
-    
-Generate migration script from some base migration to latest migration
-    Open terminal from Db project!
-    dotnet ef migrations script <MIGRATION_ID> --startup-project "../App" > migrate.sql
-    MIGRATION_ID is the full migration name including date stamp such as: 20181112043643_Initial
-    Find migrate.sql and review changes
-    Run script on database
+See readme.md for migration instructions
