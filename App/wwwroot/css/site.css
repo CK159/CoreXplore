@@ -35,3 +35,14 @@ body {
         display: none;
     }
 }
+
+/*Logout link contains a link button in a form which breaks the default selector*/
+#logout {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border: 0;
+}
+
+#logout:hover {
+    text-decoration: none;
+}

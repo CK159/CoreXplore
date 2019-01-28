@@ -1,9 +1,11 @@
 using System.Linq;
 using Db;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App.Controllers
 {
+    [Authorize]
     public class MessageController : Controller
     {
         readonly Dbc context;
