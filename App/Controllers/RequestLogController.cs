@@ -1,4 +1,3 @@
-using System.Linq;
 using Db;
 using Microsoft.AspNetCore.Mvc;
 
