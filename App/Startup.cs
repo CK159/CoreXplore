@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -37,8 +40,22 @@ namespace App
             
             services.AddDbContext<Dbc>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("I don't even know. Just give me the data, okay?")));
+            services.AddDbContext<IdentityCoreContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("I don't even know. Just give me the data, okay?")));
+            
+            services.AddDefaultIdentity<IdentityUser>()
+                //.AddDefaultUI(UIFramework.Bootstrap3)
+                .AddEntityFrameworkStores<IdentityCoreContext>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddRazorPagesOptions(options =>
+                {
+                    options.AllowAreas = true;
+                    options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage");
+                    options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
+                });
+            
             services.AddAntiforgery(opts => opts.Cookie.Name = "_PHP_XSRF_");
         }
 
@@ -69,6 +86,8 @@ namespace App
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
