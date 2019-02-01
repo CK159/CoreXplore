@@ -3,24 +3,24 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace App.Controllers
 {
-    public class RequestLogController : Controller
-    {
-        readonly Dbc context;
- 
-        public RequestLogController(Dbc context)
-        {
-            this.context = context;
-        }
-        
-        public IActionResult Index()
-        {
-            return View();
-        }
+	public class RequestLogController : Controller
+	{
+		readonly Dbc context;
 
-        [HttpPost]
-        public IActionResult Index(string message)
-        {
-            return View();
-        }
-    }
+		public RequestLogController(Dbc context)
+		{
+			this.context = context;
+		}
+
+		public IActionResult Index()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public IActionResult Index(string message)
+		{
+			return View();
+		}
+	}
 }

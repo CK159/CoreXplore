@@ -5,45 +5,45 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace App.Controllers
 {
-    [Authorize]
-    public class MessageController : Controller
-    {
-        readonly Dbc context;
- 
-        public MessageController(Dbc context)
-        {
-            this.context = context;
-        }
-        
-        public IActionResult Index()
-        {
-            ViewBag.messages = context.Messages.OrderBy(x => x.DateCreated).ToList();
-            ViewBag.info = "";
+	[Authorize]
+	public class MessageController : Controller
+	{
+		readonly Dbc context;
 
-            return View();
-        }
+		public MessageController(Dbc context)
+		{
+			this.context = context;
+		}
 
-        [HttpPost]
-        public IActionResult Index(string message)
-        {
-            if ((message?.Trim() ?? "") == "")
-            {
-                ViewBag.info = "Enter a message.";
-            }
-            else
-            {
-                context.Messages.Add(new Message
-                {
-                    MessageText = message
-                });
-                context.SaveChanges();
+		public IActionResult Index()
+		{
+			ViewBag.messages = context.Messages.OrderBy(x => x.DateCreated).ToList();
+			ViewBag.info = "";
 
-                ViewBag.info = $"Message '{message}' saved.";
-            }
+			return View();
+		}
 
-            ViewBag.messages = context.Messages.OrderBy(x => x.DateCreated).ToList();
+		[HttpPost]
+		public IActionResult Index(string message)
+		{
+			if((message?.Trim() ?? "") == "")
+			{
+				ViewBag.info = "Enter a message.";
+			}
+			else
+			{
+				context.Messages.Add(new Message
+				{
+					MessageText = message
+				});
+				context.SaveChanges();
 
-            return View();
-        }
-    }
+				ViewBag.info = $"Message '{message}' saved.";
+			}
+
+			ViewBag.messages = context.Messages.OrderBy(x => x.DateCreated).ToList();
+
+			return View();
+		}
+	}
 }
