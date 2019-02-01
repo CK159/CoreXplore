@@ -13,6 +13,8 @@
 * Azure deployable
 * Database tables automatically non-pluralized (default convention is to be pluralized)
 * Logging middleware which records details on all server requests/responses
+* ASP.NET Core Identity
+* .editorconfig file
 
 # General Info
 
