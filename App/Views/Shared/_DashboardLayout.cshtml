@@ -1,3 +1,4 @@
+﻿@using System.Diagnostics
 @inject Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnv
 
 <!DOCTYPE html>
@@ -301,13 +302,29 @@
 
 <!-- Main Footer -->
 <footer class="main-footer">
-	<!-- To the right -->
-	<div class="pull-right hidden-xs">
-		@(Context.Request.IsLocal() ? "Local" : "Remote") - @hostingEnv.EnvironmentName
-	</div>
-
 	<!-- Default to the left -->
 	&copy; @DateTime.Now.Year - App
+	
+	<!-- To the right -->
+	<div class="pull-right hidden-xs">
+		Request: @(Context.Request.IsLocal() ? "Local" : "Remote") -
+		Config: @hostingEnv.EnvironmentName -
+		Compilation: @(MetricsHelper.IsDebug() ? "Debug" : "Release") -
+		Debugger:
+		@if (Debugger.IsAttached)
+		{
+			<b class="text-danger">Attached</b>
+		}
+		else
+		{
+			<text>Detached</text>
+		} -
+		RAM:
+		<span title="Managed memory allocated by GC">@(Math.Round(GC.GetTotalMemory(false) / 1048576d, 2))MB</span> /
+		<span title="Process working set memory">@(Math.Round(Process.GetCurrentProcess().WorkingSet64 / 1048576d, 2))MB</span>
+	</div>
+	
+	<div class="clearfix"></div>
 </footer>
 
 <!-- Control Sidebar -->
