@@ -1,0 +1,39 @@
+@using App.MVCPages.TestMvcPage
+@model List<App.MVCPages.TestMvcPage.TestMvcPageModel>
+
+@{
+	ViewData["Title"] = "TestMvcPage: MVC Page Test Page";
+	Layout = "_DashboardLayout";
+}
+
+@section Styles
+{
+	<link rel="stylesheet" href="Index.css" asp-append-version="true">
+}
+
+@section Scripts
+{
+	<script src="Index.js" asp-append-version="true"></script>
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table table-bordered table-hover table-condensed">
+	<tr>
+		<th>Id</th>
+		<th>Date</th>
+		<th>Name</th>
+		<th>Value</th>
+	</tr>
+	@foreach (TestMvcPageModel item in Model)
+	{
+		<tr>
+			<td>@item.Id</td>
+			<td>@item.Date.ToString("MM/dd/yyyy")</td>
+			<td>@item.Name</td>
+			<td>@item.Value</td>
+		</tr>
+	}
+</table>
+
+<a href="#" class="js-works"></a>

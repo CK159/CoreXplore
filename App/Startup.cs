@@ -1,14 +1,24 @@
-﻿using App.Util;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using App.Util;
 using Db;
+using JetBrains.Annotations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
+
+//Allows Rider/Resharper to provide IDE assistance for views in custom location
+[assembly: AspMvcViewLocationFormat("/MvcPages/{1}/{0}.cshtml")]
 
 namespace App
 {
@@ -39,6 +49,12 @@ namespace App
 			services.AddDefaultIdentity<IdentityUser>()
 				//.AddDefaultUI(UIFramework.Bootstrap3)
 				.AddEntityFrameworkStores<IdentityCoreContext>();
+
+			//Look for views in MvcPages folder
+			services.Configure<RazorViewEngineOptions>(o =>
+			{
+				o.ViewLocationFormats.Add("~/MvcPages/{1}/{0}" + RazorViewEngine.ViewExtension);
+			});
 
 			services.AddMvc()
 				.SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
@@ -77,7 +93,24 @@ namespace App
 			});
 
 			app.UseHttpsRedirection();
+
+			//wwwroot default
 			app.UseStaticFiles();
+			
+			//Serve *.js and *.css files in MvcPages folder
+			app.UseStaticFiles(new StaticFileOptions
+			{
+				FileProvider = new PhysicalFileProvider(
+					Path.Combine(Directory.GetCurrentDirectory(), "MvcPages")),
+				RequestPath = "",
+				ContentTypeProvider = new FileExtensionContentTypeProvider(
+					new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+					{
+						{ ".js", "application/javascript" },
+						{ ".css", "text/css" }
+					})
+			});
+			
 			app.UseCookiePolicy();
 
 			app.UseAuthentication();
