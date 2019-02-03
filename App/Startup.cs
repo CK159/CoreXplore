@@ -41,8 +41,14 @@ namespace App
 				options.MinimumSameSitePolicy = SameSiteMode.None;
 			});
 
+			//Normal context
 			services.AddDbContext<Dbc>(options =>
 				options.UseSqlServer(Configuration.GetConnectionString("I don't even know. Just give me the data, okay?")));
+			//Transient-scoped context primarily for usage in isolating request logging from normal database activity 
+			services.AddDbContext<DbcTransient>(options =>
+					options.UseSqlServer(Configuration.GetConnectionString("I don't even know. Just give me the data, okay?")),
+				ServiceLifetime.Transient);
+			//Identity context
 			services.AddDbContext<IdentityCoreContext>(options =>
 				options.UseSqlServer(Configuration.GetConnectionString("I don't even know. Just give me the data, okay?")));
 
@@ -96,7 +102,7 @@ namespace App
 
 			//wwwroot default
 			app.UseStaticFiles();
-			
+
 			//Serve *.js and *.css files in MvcPages folder
 			app.UseStaticFiles(new StaticFileOptions
 			{
@@ -106,11 +112,11 @@ namespace App
 				ContentTypeProvider = new FileExtensionContentTypeProvider(
 					new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
 					{
-						{ ".js", "application/javascript" },
-						{ ".css", "text/css" }
+						{".js", "application/javascript"},
+						{".css", "text/css"}
 					})
 			});
-			
+
 			app.UseCookiePolicy();
 
 			app.UseAuthentication();

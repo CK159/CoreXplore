@@ -38,18 +38,13 @@ namespace App.Util
 			_next = next;
 		}
 
-		//TODO: Do not use dependency injection for context - this middleware should be entirely separate from other code
-		//By using the dependency injected context, the SaveChanges() calls in here could save things that
-		//weren't supposed to have been saved by the main action
-		//Create a context subclass and register it as a transient dependency and request an instance of it twice instead
-		//(one for the pre-request logging and one for the post-request logging
-		public async Task Invoke(HttpContext context, Dbc dbContext)
+		public async Task Invoke(HttpContext context, DbcTransient dbc)
 		{
 			Stopwatch timer = Stopwatch.StartNew();
 			DateTime requestBegin = DateTime.Now;
 
 			//Log initial request data
-			RequestLog log = await LogRequest(context.Request, requestBegin, dbContext);
+			RequestLog log = await LogRequest(context.Request, requestBegin, dbc);
 
 			Stream originalRespBody = context.Response.Body;
 
@@ -62,7 +57,7 @@ namespace App.Util
 				await _next.Invoke(context);
 
 				//The request is now complete and response data is available - find out what happened
-				await LogResponse(context.Response, log, timer, dbContext);
+				await LogResponse(context.Response, log, timer, dbc);
 
 				//Copy the contents of the new stream (which contains the response)
 				//to the original stream, which is then returned to the client.
@@ -72,7 +67,7 @@ namespace App.Util
 			}
 		}
 
-		private async Task<RequestLog> LogRequest(HttpRequest req, DateTime requestBegin, Dbc dbContext)
+		private async Task<RequestLog> LogRequest(HttpRequest req, DateTime requestBegin, Dbc dbc)
 		{
 			RequestLog log = new RequestLog
 			{
@@ -99,15 +94,15 @@ namespace App.Util
 			//Reset the request stream back to the beginning
 			req.Body.Seek(0, SeekOrigin.Begin);
 
-			dbContext.RequestLogs.Add(log);
-			await dbContext.SaveChangesAsync();
+			dbc.RequestLogs.Add(log);
+			await dbc.SaveChangesAsync();
 
 			return log;
 		}
 
-		private async Task LogResponse(HttpResponse resp, RequestLog log, Stopwatch timer, Dbc dbContext)
+		private async Task LogResponse(HttpResponse resp, RequestLog log, Stopwatch timer, Dbc dbc)
 		{
-			dbContext.Entry(log);
+			dbc.Entry(log);
 			log.ResponseStatus = resp.StatusCode;
 			log.ResponseContentType = resp.Headers.GetValueOrDefault("Content-Type", "");
 			//ContentLength not always set. Fallback to buffer length if unset
@@ -127,7 +122,7 @@ namespace App.Util
 			//Do as much work as possible before getting the time
 			log.ResponseMs = (decimal)timer.Elapsed.TotalMilliseconds;
 
-			await dbContext.SaveChangesAsync();
+			await dbc.SaveChangesAsync();
 		}
 	}
 
