@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Db.Migrations
 {
-    [DbContext(typeof(Dbc))]
+    [DbContext(typeof(DbCore))]
     [Migration("20181112050054_MessageDefaults")]
     partial class MessageDefaults
     {

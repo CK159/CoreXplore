@@ -38,7 +38,7 @@ namespace App.Util
 			_next = next;
 		}
 
-		public async Task Invoke(HttpContext context, DbcTransient dbc)
+		public async Task Invoke(HttpContext context, DbCoreTransient dbc)
 		{
 			Stopwatch timer = Stopwatch.StartNew();
 			DateTime requestBegin = DateTime.Now;
@@ -67,7 +67,7 @@ namespace App.Util
 			}
 		}
 
-		private async Task<RequestLog> LogRequest(HttpRequest req, DateTime requestBegin, Dbc dbc)
+		private async Task<RequestLog> LogRequest(HttpRequest req, DateTime requestBegin, DbCore dbc)
 		{
 			RequestLog log = new RequestLog
 			{
@@ -100,7 +100,7 @@ namespace App.Util
 			return log;
 		}
 
-		private async Task LogResponse(HttpResponse resp, RequestLog log, Stopwatch timer, Dbc dbc)
+		private async Task LogResponse(HttpResponse resp, RequestLog log, Stopwatch timer, DbCore dbc)
 		{
 			dbc.Entry(log);
 			log.ResponseStatus = resp.StatusCode;

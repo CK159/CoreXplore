@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Db.Migrations
 {
-    [DbContext(typeof(Dbc))]
+    [DbContext(typeof(DbCore))]
     [Migration("20190117045022_SingularizeTables")]
     partial class SingularizeTables
     {

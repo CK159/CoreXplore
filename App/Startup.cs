@@ -42,10 +42,10 @@ namespace App
 			});
 
 			//Normal context
-			services.AddDbContext<Dbc>(options =>
+			services.AddDbContext<DbCore>(options =>
 				options.UseSqlServer(Configuration.GetConnectionString("I don't even know. Just give me the data, okay?")));
 			//Transient-scoped context primarily for usage in isolating request logging from normal database activity 
-			services.AddDbContext<DbcTransient>(options =>
+			services.AddDbContext<DbCoreTransient>(options =>
 					options.UseSqlServer(Configuration.GetConnectionString("I don't even know. Just give me the data, okay?")),
 				ServiceLifetime.Transient);
 			//Identity context

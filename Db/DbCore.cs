@@ -2,13 +2,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Db
 {
-	public class Dbc : DbContext
+	public class DbCore : DbContext
 	{
 		/*public Dbc()
 		{
 		}*/
 
-		public Dbc(DbContextOptions<Dbc> options) : base(options)
+		public DbCore(DbContextOptions<DbCore> options) : base(options)
 		{
 		}
 

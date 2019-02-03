@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Db.Migrations
 {
-    [DbContext(typeof(Dbc))]
+    [DbContext(typeof(DbCore))]
     [Migration("20190117044643_RequestLogFix")]
     partial class RequestLogFix
     {

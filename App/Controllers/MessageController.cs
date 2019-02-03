@@ -8,16 +8,16 @@ namespace App.Controllers
 	[Authorize]
 	public class MessageController : Controller
 	{
-		readonly Dbc context;
+		readonly DbCore dbc;
 
-		public MessageController(Dbc context)
+		public MessageController(DbCore dbc)
 		{
-			this.context = context;
+			this.dbc = dbc;
 		}
 
 		public IActionResult Index()
 		{
-			ViewBag.messages = context.Messages.OrderBy(x => x.DateCreated).ToList();
+			ViewBag.messages = dbc.Messages.OrderBy(x => x.DateCreated).ToList();
 			ViewBag.info = "";
 
 			return View();
@@ -32,16 +32,16 @@ namespace App.Controllers
 			}
 			else
 			{
-				context.Messages.Add(new Message
+				dbc.Messages.Add(new Message
 				{
 					MessageText = message
 				});
-				context.SaveChanges();
+				dbc.SaveChanges();
 
 				ViewBag.info = $"Message '{message}' saved.";
 			}
 
-			ViewBag.messages = context.Messages.OrderBy(x => x.DateCreated).ToList();
+			ViewBag.messages = dbc.Messages.OrderBy(x => x.DateCreated).ToList();
 
 			return View();
 		}

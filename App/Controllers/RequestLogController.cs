@@ -5,11 +5,11 @@ namespace App.Controllers
 {
 	public class RequestLogController : Controller
 	{
-		readonly Dbc context;
+		readonly DbCore dbc;
 
-		public RequestLogController(Dbc context)
+		public RequestLogController(DbCore dbc)
 		{
-			this.context = context;
+			this.dbc = dbc;
 		}
 
 		public IActionResult Index()

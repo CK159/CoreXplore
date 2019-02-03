@@ -5,9 +5,9 @@ namespace Db
 	/// <summary>
 	/// Context class specifically for usage with dependency injection with transient scoping
 	/// </summary>
-	public class DbcTransient : Dbc
+	public class DbCoreTransient : DbCore
 	{
-		public DbcTransient(DbContextOptions<Dbc> options) : base(options)
+		public DbCoreTransient(DbContextOptions<DbCore> options) : base(options)
 		{
 		}
 	}
