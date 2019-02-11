@@ -1,5 +1,7 @@
-﻿using App.Util;
+﻿using System.Reflection;
+using App.Util;
 using Db;
+using GenericServices.Setup;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -63,6 +65,8 @@ namespace App
 				});
 
 			services.AddAntiforgery(opts => opts.Cookie.Name = "_PHP_XSRF_");
+			
+			services.GenericServicesSimpleSetup<DbCore>(Assembly.GetAssembly(typeof(Startup)));
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

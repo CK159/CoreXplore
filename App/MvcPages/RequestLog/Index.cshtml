@@ -1,4 +1,5 @@
-@model object
+@using App.MvcPages.RequestLog
+@model X.PagedList.IPagedList<App.MvcPages.RequestLog.RequestIndexModel>
 
 @{
 	ViewBag.Title = "Site Request Log";
@@ -23,21 +24,34 @@
 
 <table class="table table-bordered table-striped table-hover">
 	<tr>
+		<th>Id</th>
 		<th>Date</th>
-		<th>RequestLogId</th>
-		<th>IP</th>
+		<th>Method</th>
 		<th>URL</th>
-		<th>Request</th>
-		<th>Response</th>
+		<th>IP</th>
+		<th>Status</th>
+		<th>Time</th>
 	</tr>
-	@*@foreach (Message x in ViewBag.messages)
+	@foreach (RequestIndexModel item in Model)
 	{
 		<tr>
-			<td>@x.MessageId</td>
-			<td>@x.MessageText</td>
-			<td>@x.DateCreated.ToString("yyyy-MM-dd hh:mm tt")</td>
+			<td>@item.RequestLogId</td>
+			<td>@item.RequestBegin.ToString("yyyy-MM-dd hh:mm:ss.fff tt")</td>
+			<td>@item.RequestMethod</td>
+			<td>@item.URL</td>
+			<td>@item.IP</td>
+			<td>@item.ResponseStatus</td>
+			<td>
+				@if (item.ResponseMs == null)
+				{
+					<span class="text-danger">In Progress:</span>
+					@(DateTime.Now.Subtract(item.RequestBegin).TotalMilliseconds)
+					<text>ms.</text>
+				}
+				@item.ResponseMs ms.
+			</td>
 		</tr>
-	}*@
+	}
 </table>
 
 @*@using (Html.BeginForm("Index", "Message", FormMethod.Post, new {/*Extra params or something*/}))
