@@ -10,7 +10,10 @@ Use GenericServices
 Generic Filter / Sort controller
 	FilterSortContract - object which defines what fields are filter/sortable and the implementations for those operations
 	FilterProp - interface which defines what filter operation to perform - multiple default implementations + custom ones for custom / advanced searching
+No startup error if MvcPages folder doesnt exist
+Upgrade nuget packages
 
+DONE - Figure out how to get the css and js in the MvcPages folder to actually deploy
 DONE - app.UseStaticFiles(new MvcPageStaticFileOptions())
 DONE - Add transient DbContext - make DbcTransient inherited from Dbc and register for dependency injection
 	Update logging to use this

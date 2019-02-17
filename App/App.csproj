@@ -22,5 +22,15 @@
     <ItemGroup>
       <Folder Include="wwwroot\lib" />
     </ItemGroup>
+	
+	<ItemGroup>
+		<!--This copies only the css and js files in the MvcPages directory to the deployment directory. Filepath structure is maintained.-->
+		<Content Include="MvcPages\**\*.js">
+		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+		</Content>
+		<Content Include="MvcPages\**\*.css">
+		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+		</Content>
+	</ItemGroup>
 
 </Project>

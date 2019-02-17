@@ -5,3 +5,4 @@ bin/
 .vs/
 *.sln.iml
 *.DotSettings.user
+*.user

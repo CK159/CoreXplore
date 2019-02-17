@@ -15,6 +15,8 @@
 * Logging middleware which records details on all server requests/responses
 * ASP.NET Core Identity
 * .editorconfig file
+* MvcPages - Conveniently colocate controller, views, models, css, js files together in single folder
+* GenericServices
 
 # General Info
 
