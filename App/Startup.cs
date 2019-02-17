@@ -65,7 +65,7 @@ namespace App
 				});
 
 			services.AddAntiforgery(opts => opts.Cookie.Name = "_PHP_XSRF_");
-			
+
 			services.GenericServicesSimpleSetup<DbCore>(Assembly.GetAssembly(typeof(Startup)));
 		}
 
@@ -74,7 +74,7 @@ namespace App
 		{
 			app.UseRequestLogging();
 
-			if(env.IsDevelopment())
+			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
 			}
@@ -97,7 +97,7 @@ namespace App
 
 			//wwwroot default
 			app.UseStaticFiles();
-			
+
 			//Serve *.js and *.css files from the MvcPages folder
 			app.UseMvcPagesStaticFiles();
 

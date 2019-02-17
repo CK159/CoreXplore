@@ -9,12 +9,12 @@ namespace App.Util
 		public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key,
 			TValue defaultValue = default(TValue))
 		{
-			if(dictionary == null)
+			if (dictionary == null)
 			{
 				throw new ArgumentNullException(nameof(dictionary));
 			} // using C# 6
 
-			if(key == null)
+			if (key == null)
 			{
 				throw new ArgumentNullException(nameof(key));
 			} //  using C# 6
@@ -32,7 +32,7 @@ namespace App.Util
 		/// <returns></returns>
 		public static string Left(this string str, int upToLength)
 		{
-			if(str.Length <= upToLength)
+			if (str.Length <= upToLength)
 				return str;
 
 			return str.Substring(0, upToLength);
@@ -47,7 +47,7 @@ namespace App.Util
 		/// <returns></returns>
 		public static string Right(this string str, int upToLength)
 		{
-			if(str.Length <= upToLength)
+			if (str.Length <= upToLength)
 				return str;
 
 			return str.Substring(str.Length - upToLength);

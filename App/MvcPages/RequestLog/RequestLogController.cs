@@ -20,7 +20,7 @@ namespace App.MvcPages.RequestLog
 			IPagedList<RequestIndexModel> model = _service.ReadManyNoTracked<RequestIndexModel>()
 				.OrderByDescending(i => i.RequestLogId)
 				.ToPagedList(1, 30);
-			
+
 			return View(model);
 		}
 

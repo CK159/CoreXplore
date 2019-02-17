@@ -49,7 +49,7 @@ namespace App.Util
 			Stream originalRespBody = context.Response.Body;
 
 			//Setup new stream for the response to be put into
-			using(MemoryStream responseBody = new MemoryStream())
+			using (MemoryStream responseBody = new MemoryStream())
 			{
 				context.Response.Body = responseBody;
 
@@ -88,7 +88,7 @@ namespace App.Util
 			string requestAsText = await new StreamReader(req.Body).ReadToEndAsync();
 
 			//Save a bit of it for logging
-			if(!requestAsText.IsNullOrWhitespace())
+			if (!requestAsText.IsNullOrWhitespace())
 				log.RequestText = requestAsText.Left(2048);
 
 			//Reset the request stream back to the beginning
@@ -116,7 +116,7 @@ namespace App.Util
 			string responseAsText = await new StreamReader(resp.Body).ReadToEndAsync();
 			resp.Body.Seek(0, SeekOrigin.Begin);
 
-			if(!responseAsText.IsNullOrWhitespace())
+			if (!responseAsText.IsNullOrWhitespace())
 				log.ResponseText = responseAsText.Left(2048);
 
 			//Do as much work as possible before getting the time

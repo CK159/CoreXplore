@@ -26,7 +26,7 @@ namespace App.Controllers
 		[HttpPost]
 		public IActionResult Index(string message)
 		{
-			if((message?.Trim() ?? "") == "")
+			if ((message?.Trim() ?? "") == "")
 			{
 				ViewBag.info = "Enter a message.";
 			}

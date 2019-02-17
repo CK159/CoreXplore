@@ -60,7 +60,7 @@
 	<hr />
 	<footer>
 		&copy; @DateTime.Now.Year - App
-		
+
 		<div class="pull-right hidden-xs">
 			Request: @(Context.Request.IsLocal() ? "Local" : "Remote") -
 			Config: @hostingEnv.EnvironmentName -
@@ -73,12 +73,12 @@
 			else
 			{
 				<text>Detached</text>
-			} -
-			RAM:
+			}
+			- RAM:
 			<span title="Managed memory allocated by GC">@(Math.Round(GC.GetTotalMemory(false) / 1048576d, 2))MB</span> /
 			<span title="Process working set memory">@(Math.Round(Process.GetCurrentProcess().WorkingSet64 / 1048576d, 2))MB</span>
 		</div>
-		
+
 		<div class="clearfix"></div>
 	</footer>
 </div>
