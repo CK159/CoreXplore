@@ -11,27 +11,42 @@ namespace App.Util
 {
 	public static class MvcPageConfig
 	{
+		public static readonly Dictionary<string, string> DefaultStaticFileTypes =
+			new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+			{
+				{".js", "application/javascript"},
+				{".css", "text/css"}
+			};
+
 		/// <summary>
-		/// Enables css and js files to be served from the MvcPages folder
+		/// Enables css and js files to be served from the MvcPages folder to the website root.
+		/// Ex: MvcPages\test\index.js is available at http://localhost/test/index.js
+		/// File types and root path can be altered via customStaticFileTypes and customRootPath, respectively.
 		/// </summary>
 		/// <param name="app"></param>
+		/// <param name="customStaticFileTypes"></param>
+		/// <param name="customRootPath"></param>
 		/// <returns></returns>
-		public static IApplicationBuilder UseMvcPagesStaticFiles(this IApplicationBuilder app)
+		public static IApplicationBuilder UseMvcPagesStaticFiles(this IApplicationBuilder app,
+			Dictionary<string, string> customStaticFileTypes = null, string customRootPath = "")
 		{
-			return app.UseStaticFiles(new StaticFileOptions
+			string mvcPageDir = Path.Combine(Directory.GetCurrentDirectory(), "MvcPages");
+
+			//Application will fail to start up if you try to add a static file directory which doesn't exist
+			if (Directory.Exists(mvcPageDir))
 			{
-				FileProvider = new PhysicalFileProvider(
-					Path.Combine(Directory.GetCurrentDirectory(), "MvcPages")),
-				RequestPath = "",
-				ContentTypeProvider = new FileExtensionContentTypeProvider(
-					new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
-					{
-						{".js", "application/javascript"},
-						{".css", "text/css"}
-					})
-			});
+				app.UseStaticFiles(new StaticFileOptions
+				{
+					FileProvider = new PhysicalFileProvider(
+						mvcPageDir),
+					RequestPath = customRootPath,
+					ContentTypeProvider = new FileExtensionContentTypeProvider(customStaticFileTypes ?? DefaultStaticFileTypes)
+				});
+			}
+
+			return app;
 		}
-		
+
 		/// <summary>
 		/// Adds MvcPages folder to list of view search locations
 		/// </summary>
