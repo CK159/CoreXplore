@@ -20,39 +20,110 @@
 	</ol>
 }
 
-<h2>999+ Requests logged</h2>
+<h2>@Model.TotalItemCount requests logged</h2>
 
-<table class="table table-bordered table-striped table-hover">
-	<tr>
-		<th>Id</th>
-		<th>Date</th>
-		<th>Method</th>
-		<th>URL</th>
-		<th>IP</th>
-		<th>Status</th>
-		<th>Time</th>
-	</tr>
-	@foreach (RequestIndexModel item in Model)
-	{
-		<tr>
-			<td>@item.RequestLogId</td>
-			<td>@item.RequestBegin.ToString("yyyy-MM-dd hh:mm:ss.fff tt")</td>
-			<td>@item.RequestMethod</td>
-			<td>@item.URL</td>
-			<td>@item.IP</td>
-			<td>@item.ResponseStatus</td>
-			<td>
-				@if (item.ResponseMs == null)
-				{
-					<span class="text-danger">In Progress:</span>
-					@(DateTime.Now.Subtract(item.RequestBegin).TotalMilliseconds)
-					<text>ms.</text>
-				}
-				@item.ResponseMs ms.
-			</td>
-		</tr>
-	}
-</table>
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<i class="fa fa-search"></i> &nbsp;Log Search
+	</div>
+
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-md-3">
+				<div class="form-group">
+					<label>Request Log ID</label>
+					<input class="form-control" name="RequestLogId"/>
+				</div>
+		
+				<div class="form-group">
+					<label>In Progress</label>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" name="InProgress"/>
+							Requests In Progress
+						</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-3">
+				<div class="form-group">
+					<label>Start Date</label>
+					<input class="form-control" name="StartDate"/>
+				</div>
+							
+				<div class="form-group">
+					<label>End Date</label>
+					<input class="form-control" name="EndDate"/>
+				</div>
+			</div>
+	
+			<div class="col-md-3">
+				<div class="form-group">
+					<label>Request Method</label>
+					<input class="form-control" name="RequestMethod"/>
+				</div>
+		
+				<div class="form-group">
+					<label>Response Status</label>
+					<input class="form-control" name="ResponseStatus"/>
+				</div>
+			</div>
+
+			<div class="col-md-3">
+				<div class="form-group">
+					<label>URL</label>
+					<input class="form-control" name="URL"/>
+				</div>
+		
+				<div class="form-group">
+					<label>IP</label>
+					<input class="form-control" name="IP"/>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<i class="fa fa-file-text-o"></i> &nbsp;Results
+	</div>
+
+	<div class="panel-body">
+		<table class="table table-bordered table-striped table-hover">
+			<tr>
+				<th>Id</th>
+				<th>Date</th>
+				<th>Method</th>
+				<th>URL</th>
+				<th>IP</th>
+				<th>Status</th>
+				<th>Time</th>
+			</tr>
+			@foreach (RequestIndexModel item in Model)
+			{
+				<tr>
+					<td>@item.RequestLogId</td>
+					<td>@item.RequestBegin.ToString("yyyy-MM-dd hh:mm:ss.fff tt")</td>
+					<td>@item.RequestMethod</td>
+					<td>@item.URL</td>
+					<td>@item.IP</td>
+					<td>@item.ResponseStatus</td>
+					<td>
+						@if (item.ResponseMs == null)
+						{
+							<span class="text-danger">In Progress:</span>
+							@(DateTime.Now.Subtract(item.RequestBegin).TotalMilliseconds)
+							<text>ms.</text>
+						}
+						@item.ResponseMs ms.
+					</td>
+				</tr>
+			}
+		</table>
+	</div>
+</div>
 
 @*@using (Html.BeginForm("Index", "Message", FormMethod.Post, new {/*Extra params or something*/}))
 {

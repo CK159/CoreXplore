@@ -17,11 +17,11 @@ namespace App.MvcPages.RequestLog
 
 		public IActionResult Index()
 		{
-			IPagedList<RequestIndexModel> model = _service.ReadManyNoTracked<RequestIndexModel>()
+			IPagedList<RequestIndexModel> pagedModel = _service.ReadManyNoTracked<RequestIndexModel>()
 				.OrderByDescending(i => i.RequestLogId)
 				.ToPagedList(1, 30);
 
-			return View(model);
+			return View(pagedModel);
 		}
 
 		[HttpPost]
