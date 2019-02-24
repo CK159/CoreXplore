@@ -2,7 +2,7 @@
 @model List<App.MVCPages.TestMvcPage.TestMvcPageModel>
 
 @{
-	ViewData["Title"] = "TestMvcPage: MVC Page Test Page";
+	ViewData["Title"] = "TestMvcPage: MvcPages Test Page";
 	Layout = "_DashboardLayout";
 }
 
@@ -14,6 +14,19 @@
 @section Scripts
 {
 	<script src="Index.js" asp-append-version="true"></script>
+}
+
+@section PageHead
+{
+	<h1>
+		TestMvcPage
+		<small>MvcPages Test Page</small>
+	</h1>
+	<ol class="breadcrumb">
+		<li>Home</li>
+		<li><i class="fa fa-dashboard"></i> Dashboard</li>
+		<li class="active">TestMvcPage</li>
+	</ol>
 }
 
 <h2>@ViewData["Title"]</h2>

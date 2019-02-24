@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using GenericServices;
 using Microsoft.AspNetCore.Mvc;
@@ -15,19 +14,29 @@ namespace App.MvcPages.RequestLog
 			this._service = _service;
 		}
 
-		public IActionResult Index()
+		public IActionResult Index(IndexOptions options)
 		{
-			IPagedList<RequestIndexModel> pagedModel = _service.ReadManyNoTracked<RequestIndexModel>()
+			IPagedList<RequestIndexModel> pagedItems = _service.ReadManyNoTracked<RequestIndexModel>()
 				.OrderByDescending(i => i.RequestLogId)
-				.ToPagedList(1, 30);
+				.ToPagedList(options.CurrentPage, options.PageSize);
 
-			return View(pagedModel);
+			return View(new IndexViewModel
+			{
+				Options = options,
+				PagedItems = pagedItems
+			});
 		}
 
 		[HttpPost]
 		public IActionResult Index(string message)
 		{
 			return View();
+		}
+
+		public IActionResult DetailPage(int requestLogId)
+		{
+			DetailModel model = _service.ReadSingle<DetailModel>(requestLogId);
+			return View(model);
 		}
 	}
 }

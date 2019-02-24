@@ -1,0 +1,12 @@
+@using App.MvcPages.RequestLog
+@using App.Util
+@model DetailModel
+
+<p>This is the detail partial</p>
+
+RequestLogId: @Model.RequestLogId<br />
+Method: @Model.RequestMethod<br />
+Begin Date: @Model.RequestBegin.ToPreciseDateTime()<br />
+Response: @Model.ResponseStatus<br />
+Response Ms.: @Model.ResponseMs<br />
+Response Size: @Model.ResponseSize<br />

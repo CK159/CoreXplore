@@ -1,0 +1,27 @@
+@using App.MvcPages.RequestLog
+@model DetailModel
+
+@{
+	ViewBag.Title = "Site Request Log";
+	Layout = "_DashboardLayout";
+}
+
+@section PageHead
+{
+	<h1>
+		RequestLogID: @Model.RequestLogId
+		<small>X hours ago</small>
+	</h1>
+	<ol class="breadcrumb">
+		<li>Home</li>
+		<li><i class="fa fa-gear"></i> Admin</li>
+		<li>Request Log</li>
+		<li class="active">Request Detail</li>
+	</ol>
+}
+
+<p>
+	<a href="@Url.Action("Index")" class="btn btn-default">&lt; Back to Index</a>
+</p>
+
+<partial name="_Detail" model="Model"></partial>

@@ -1,5 +1,6 @@
 @using App.MvcPages.RequestLog
-@model X.PagedList.IPagedList<App.MvcPages.RequestLog.RequestIndexModel>
+@using App.Util
+@model IndexViewModel
 
 @{
 	ViewBag.Title = "Site Request Log";
@@ -14,116 +15,131 @@
 	</h1>
 	<ol class="breadcrumb">
 		<li>Home</li>
-		<li><i class="fa fa-dashboard"></i> Dashboard</li>
 		<li><i class="fa fa-gear"></i> Admin</li>
 		<li class="active">Request Log</li>
 	</ol>
 }
 
-<h2>@Model.TotalItemCount requests logged</h2>
+<h2>@Model.PagedItems.TotalItemCount requests logged</h2>
+@using (Html.BeginForm("Index", "RequestLog", FormMethod.Post, new {/*Extra params or something*/}))
+{
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<i class="fa fa-search"></i> &nbsp;Log Search
+		</div>
 
-<div class="panel panel-primary">
-	<div class="panel-heading">
-		<i class="fa fa-search"></i> &nbsp;Log Search
-	</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-3">
+					<div class="form-group">
+						<label>Request Log ID</label>
+						<input class="form-control" name="RequestLogId" />
+					</div>
 
-	<div class="panel-body">
-		<div class="row">
-			<div class="col-md-3">
-				<div class="form-group">
-					<label>Request Log ID</label>
-					<input class="form-control" name="RequestLogId"/>
-				</div>
-		
-				<div class="form-group">
-					<label>In Progress</label>
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" name="InProgress"/>
-							Requests In Progress
-						</label>
+					<div class="form-group">
+						<label>In Progress</label>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" name="InProgress" />
+								Requests In Progress
+							</label>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label>Detail Viewer</label>
+						<select name="DetailType" class="form-control">
+							<option value="Modal">Modal Popup</option>
+							<option value="Page" selected>Separate Page</option>
+							<option value="Panel">On-page Panel</option>
+							<option value="All">All</option>
+						</select>
 					</div>
 				</div>
-			</div>
 
-			<div class="col-md-3">
-				<div class="form-group">
-					<label>Start Date</label>
-					<input class="form-control" name="StartDate"/>
-				</div>
-							
-				<div class="form-group">
-					<label>End Date</label>
-					<input class="form-control" name="EndDate"/>
-				</div>
-			</div>
-	
-			<div class="col-md-3">
-				<div class="form-group">
-					<label>Request Method</label>
-					<input class="form-control" name="RequestMethod"/>
-				</div>
-		
-				<div class="form-group">
-					<label>Response Status</label>
-					<input class="form-control" name="ResponseStatus"/>
-				</div>
-			</div>
+				<div class="col-md-3">
+					<div class="form-group">
+						<label>Start Date</label>
+						<input class="form-control" name="StartDate" />
+					</div>
 
-			<div class="col-md-3">
-				<div class="form-group">
-					<label>URL</label>
-					<input class="form-control" name="URL"/>
+					<div class="form-group">
+						<label>End Date</label>
+						<input class="form-control" name="EndDate" />
+					</div>
 				</div>
-		
-				<div class="form-group">
-					<label>IP</label>
-					<input class="form-control" name="IP"/>
+
+				<div class="col-md-3">
+					<div class="form-group">
+						<label>Request Method</label>
+						<input class="form-control" name="RequestMethod" />
+					</div>
+
+					<div class="form-group">
+						<label>Response Status</label>
+						<input class="form-control" name="ResponseStatus" />
+					</div>
+				</div>
+
+				<div class="col-md-3">
+					<div class="form-group">
+						<label>URL</label>
+						<input class="form-control" name="URL" />
+					</div>
+
+					<div class="form-group">
+						<label>IP</label>
+						<input class="form-control" name="IP" />
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
-<div class="panel panel-primary">
-	<div class="panel-heading">
-		<i class="fa fa-file-text-o"></i> &nbsp;Results
-	</div>
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<i class="fa fa-file-text-o"></i> &nbsp;Results
+		</div>
 
-	<div class="panel-body">
-		<table class="table table-bordered table-striped table-hover">
-			<tr>
-				<th>Id</th>
-				<th>Date</th>
-				<th>Method</th>
-				<th>URL</th>
-				<th>IP</th>
-				<th>Status</th>
-				<th>Time</th>
-			</tr>
-			@foreach (RequestIndexModel item in Model)
-			{
+		<div class="panel-body">
+			<table class="table table-bordered table-striped table-hover">
 				<tr>
-					<td>@item.RequestLogId</td>
-					<td>@item.RequestBegin.ToString("yyyy-MM-dd hh:mm:ss.fff tt")</td>
-					<td>@item.RequestMethod</td>
-					<td>@item.URL</td>
-					<td>@item.IP</td>
-					<td>@item.ResponseStatus</td>
-					<td>
-						@if (item.ResponseMs == null)
-						{
-							<span class="text-danger">In Progress:</span>
-							@(DateTime.Now.Subtract(item.RequestBegin).TotalMilliseconds)
-							<text>ms.</text>
-						}
-						@item.ResponseMs ms.
-					</td>
+					<th>Id</th>
+					<th>Date</th>
+					<th>Method</th>
+					<th>URL</th>
+					<th>IP</th>
+					<th>Status</th>
+					<th>Time</th>
 				</tr>
-			}
-		</table>
+				@foreach (RequestIndexModel item in Model.PagedItems)
+				{
+					<tr>
+						<td>
+							<a href="@Url.Action("DetailPage", new {requestLogId = item.RequestLogId})" class="js-request-log-link">
+								@item.RequestLogId
+							</a>
+						</td>
+						<td>@item.RequestBegin.ToPreciseDateTime()</td>
+						<td>@item.RequestMethod</td>
+						<td>@item.URL</td>
+						<td>@item.IP</td>
+						<td>@item.ResponseStatus</td>
+						<td>
+							@if (item.ResponseMs == null)
+							{
+								<span class="text-danger">In Progress:</span>
+								@(DateTime.Now.Subtract(item.RequestBegin).TotalMilliseconds)
+								<text>ms.</text>
+							}
+							@item.ResponseMs ms.
+						</td>
+					</tr>
+				}
+			</table>
+		</div>
 	</div>
-</div>
+}
 
 @*@using (Html.BeginForm("Index", "Message", FormMethod.Post, new {/*Extra params or something*/}))
 {

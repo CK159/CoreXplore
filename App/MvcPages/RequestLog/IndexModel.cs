@@ -1,5 +1,6 @@
 using System;
 using GenericServices;
+using X.PagedList;
 
 namespace App.MvcPages.RequestLog
 {
@@ -12,5 +13,11 @@ namespace App.MvcPages.RequestLog
 		public string IP { get; set; }
 		public int? ResponseStatus { get; set; }
 		public decimal? ResponseMs { get; set; }
+	}
+	
+	public class IndexViewModel
+	{
+		public IndexOptions Options { get; set; }
+		public IPagedList<RequestIndexModel> PagedItems { get; set; }
 	}
 }
