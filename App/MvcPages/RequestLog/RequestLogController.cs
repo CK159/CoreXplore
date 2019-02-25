@@ -39,6 +39,18 @@ namespace App.MvcPages.RequestLog
 			return View(model);
 		}
 
+		public IActionResult DetailModal(int requestLogId)
+		{
+			RerquestLogDetailModel model = _service.ReadSingle<RerquestLogDetailModel>(requestLogId);
+			return View(model);
+		}
+
+		public IActionResult DetailPanel(int requestLogId)
+		{
+			RerquestLogDetailModel model = _service.ReadSingle<RerquestLogDetailModel>(requestLogId);
+			return View(model);
+		}
+
 		public IActionResult SaveRequestLog(RerquestLogDetailModel item)
 		{
 			_service.UpdateAndSave(item);

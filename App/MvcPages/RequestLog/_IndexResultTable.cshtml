@@ -16,7 +16,8 @@
 	{
 		<tr>
 			<td>
-				<a href="@Url.Action("DetailPage", new {requestLogId = item.RequestLogId})" class="js-log-link">
+				<a href="@Url.Action("DetailPage", new {requestLogId = item.RequestLogId})"
+				   class="js-log-link", data-requestlogid="@item.RequestLogId">
 					@item.RequestLogId
 				</a>
 			</td>
