@@ -5,6 +5,12 @@
 @{
 	ViewBag.Title = "Site Request Log";
 	Layout = "_DashboardLayout";
+	RequestLogIndexOptions options = Model.Options;
+}
+
+@section Scripts
+{
+	<script src="Index.js" asp-append-version="true"></script>
 }
 
 @section PageHead
@@ -33,14 +39,14 @@
 				<div class="col-md-3">
 					<div class="form-group">
 						<label>Request Log ID</label>
-						<input class="form-control" name="RequestLogId" />
+						<input class="form-control" name="RequestLogId" value="@options.RequestLogId" />
 					</div>
 
 					<div class="form-group">
 						<label>In Progress</label>
 						<div class="checkbox">
 							<label>
-								<input type="checkbox" name="InProgress" />
+								<input type="checkbox" name="InProgress" @(options.InProgress ? "checked" : "") />
 								Requests In Progress
 							</label>
 						</div>
@@ -48,11 +54,22 @@
 
 					<div class="form-group">
 						<label>Detail Viewer</label>
-						<select name="DetailType" class="form-control">
-							<option value="Modal">Modal Popup</option>
-							<option value="Page" selected>Separate Page</option>
-							<option value="Panel">On-page Panel</option>
-							<option value="All">All</option>
+						<select id="detailType" name="DetailType" class="form-control">
+							<option value="Modal" @(options.DetailType == RequestLogDetailType.Modal ? "selected" : "")>
+								Modal Popup
+							</option>
+							<option value="SamePage" @(options.DetailType == RequestLogDetailType.SamePage ? "selected" : "")>
+								Separate Page
+							</option>
+							<option value="NewPage" @(options.DetailType == RequestLogDetailType.NewPage ? "selected" : "")>
+								Separate Page (in new tab)
+							</option>
+							<option value="Panel" @(options.DetailType == RequestLogDetailType.Panel ? "selected" : "")>
+								On-page Panel
+							</option>
+							<option value="All" @(options.DetailType == RequestLogDetailType.All ? "selected" : "")>
+								All
+							</option>
 						</select>
 					</div>
 				</div>
@@ -60,36 +77,36 @@
 				<div class="col-md-3">
 					<div class="form-group">
 						<label>Start Date</label>
-						<input class="form-control" name="StartDate" />
+						<input class="form-control" name="StartDate" value="@options.StartDate.ToStandardDate()" />
 					</div>
 
 					<div class="form-group">
 						<label>End Date</label>
-						<input class="form-control" name="EndDate" />
+						<input class="form-control" name="EndDate" value="@options.EndDate.ToStandardDate()" />
 					</div>
 				</div>
 
 				<div class="col-md-3">
 					<div class="form-group">
 						<label>Request Method</label>
-						<input class="form-control" name="RequestMethod" />
+						<input class="form-control" name="RequestMethod" value="@options.RequestMethod" />
 					</div>
 
 					<div class="form-group">
 						<label>Response Status</label>
-						<input class="form-control" name="ResponseStatus" />
+						<input class="form-control" name="ResponseStatus" value="@options.ResponseStatus" />
 					</div>
 				</div>
 
 				<div class="col-md-3">
 					<div class="form-group">
 						<label>URL</label>
-						<input class="form-control" name="URL" />
+						<input class="form-control" name="URL" value="@options.URL" />
 					</div>
 
 					<div class="form-group">
 						<label>IP</label>
-						<input class="form-control" name="IP" />
+						<input class="form-control" name="IP" value="@options.IP" />
 					</div>
 				</div>
 			</div>
@@ -101,59 +118,12 @@
 			<i class="fa fa-file-text-o"></i> &nbsp;Results
 		</div>
 
-		<div class="panel-body">
-			<table class="table table-bordered table-striped table-hover">
-				<tr>
-					<th>Id</th>
-					<th>Date</th>
-					<th>Method</th>
-					<th>URL</th>
-					<th>IP</th>
-					<th>Status</th>
-					<th>Time</th>
-				</tr>
-				@foreach (RequestIndexModel item in Model.PagedItems)
-				{
-					<tr>
-						<td>
-							<a href="@Url.Action("DetailPage", new {requestLogId = item.RequestLogId})" class="js-request-log-link">
-								@item.RequestLogId
-							</a>
-						</td>
-						<td>@item.RequestBegin.ToPreciseDateTime()</td>
-						<td>@item.RequestMethod</td>
-						<td>@item.URL</td>
-						<td>@item.IP</td>
-						<td>@item.ResponseStatus</td>
-						<td>
-							@if (item.ResponseMs == null)
-							{
-								<span class="text-danger">In Progress:</span>
-								@(DateTime.Now.Subtract(item.RequestBegin).TotalMilliseconds)
-								<text>ms.</text>
-							}
-							@item.ResponseMs ms.
-						</td>
-					</tr>
-				}
-			</table>
+		<div id="logResultTable" class="panel-body">
+			<partial name="_IndexResultTable" model="Model.PagedItems"></partial>
 		</div>
 	</div>
 }
 
-@*@using (Html.BeginForm("Index", "Message", FormMethod.Post, new {/*Extra params or something*/}))
-{
-	if (ViewBag.info != "")
-	{
-		<div class="alert alert-info">@ViewBag.info</div>
-	}
+<div id="requestLogDetailPanel"></div>
 
-	<div class="form-group">
-		<label>Add Message</label>
-		<input class="form-control" name="message" placeholder="Your Content Here"/>
-	</div>
-
-	<p>
-		<button type="submit" class="btn btn-primary">Add Message</button>
-	</p>
-}*@
+<div id="requestLogDetailModal" class="modal fade"></div>

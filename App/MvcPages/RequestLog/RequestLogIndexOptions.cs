@@ -6,7 +6,7 @@ namespace App.MvcPages.RequestLog
 	/// <summary>
 	/// All the filter, sort and paging options for the 
 	/// </summary>
-	public class IndexOptions : PageableOptions
+	public class RequestLogIndexOptions : PageableOptions
 	{
 		public int? RequestLogId { get; set; }
 		public RequestLogDateType DateType { get; set; }
@@ -30,7 +30,8 @@ namespace App.MvcPages.RequestLog
 	{
 		Modal,
 		Panel,
-		Page,
+		SamePage,
+		NewPage,
 		All
 	}
 }

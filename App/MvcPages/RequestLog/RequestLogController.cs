@@ -14,9 +14,9 @@ namespace App.MvcPages.RequestLog
 			this._service = _service;
 		}
 
-		public IActionResult Index(IndexOptions options)
+		public IActionResult Index(RequestLogIndexOptions options)
 		{
-			IPagedList<RequestIndexModel> pagedItems = _service.ReadManyNoTracked<RequestIndexModel>()
+			IPagedList<RequestLogIndexModel> pagedItems = _service.ReadManyNoTracked<RequestLogIndexModel>()
 				.OrderByDescending(i => i.RequestLogId)
 				.ToPagedList(options.CurrentPage, options.PageSize);
 
@@ -35,8 +35,15 @@ namespace App.MvcPages.RequestLog
 
 		public IActionResult DetailPage(int requestLogId)
 		{
-			DetailModel model = _service.ReadSingle<DetailModel>(requestLogId);
+			RerquestLogDetailModel model = _service.ReadSingle<RerquestLogDetailModel>(requestLogId);
 			return View(model);
+		}
+
+		public IActionResult SaveRequestLog(RerquestLogDetailModel item)
+		{
+			_service.UpdateAndSave(item);
+
+			return null; //TODO: Return JSON of some sort here
 		}
 	}
 }

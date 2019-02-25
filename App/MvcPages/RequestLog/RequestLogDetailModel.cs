@@ -4,7 +4,7 @@ using GenericServices;
 
 namespace App.MvcPages.RequestLog
 {
-	public class DetailModel : ILinkToEntity<Db.RequestLog>
+	public class RerquestLogDetailModel : ILinkToEntity<Db.RequestLog>
 	{
 		public int RequestLogId { get; set; }
 		public DateTime DateCreated { get; set; }

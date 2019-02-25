@@ -4,7 +4,7 @@ using X.PagedList;
 
 namespace App.MvcPages.RequestLog
 {
-	public class RequestIndexModel : ILinkToEntity<Db.RequestLog>
+	public class RequestLogIndexModel : ILinkToEntity<Db.RequestLog>
 	{
 		public int RequestLogId { get; set; }
 		public DateTime RequestBegin { get; set; }
@@ -17,7 +17,7 @@ namespace App.MvcPages.RequestLog
 	
 	public class IndexViewModel
 	{
-		public IndexOptions Options { get; set; }
-		public IPagedList<RequestIndexModel> PagedItems { get; set; }
+		public RequestLogIndexOptions Options { get; set; }
+		public IPagedList<RequestLogIndexModel> PagedItems { get; set; }
 	}
 }

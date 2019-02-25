@@ -1,0 +1,39 @@
+@using App.MvcPages.RequestLog
+@model X.PagedList.IPagedList<RequestLogIndexModel>
+
+
+<table class="table table-bordered table-striped table-hover js-log-results">
+	<tr>
+		<th>Id</th>
+		<th>Date</th>
+		<th>Method</th>
+		<th>URL</th>
+		<th>IP</th>
+		<th>Status</th>
+		<th>Time</th>
+	</tr>
+	@foreach (RequestLogIndexModel item in Model)
+	{
+		<tr>
+			<td>
+				<a href="@Url.Action("DetailPage", new {requestLogId = item.RequestLogId})" class="js-log-link">
+					@item.RequestLogId
+				</a>
+			</td>
+			<td>@item.RequestBegin.ToPreciseDateTime()</td>
+			<td>@item.RequestMethod</td>
+			<td>@item.URL</td>
+			<td>@item.IP</td>
+			<td>@item.ResponseStatus</td>
+			<td>
+				@if (item.ResponseMs == null)
+				{
+					<span class="text-danger">In Progress:</span>
+					@(DateTime.Now.Subtract(item.RequestBegin).TotalMilliseconds)
+					<text>ms.</text>
+				}
+				@item.ResponseMs ms.
+			</td>
+		</tr>
+	}
+</table>
