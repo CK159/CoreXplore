@@ -4,7 +4,23 @@ $(function () {
 });
 
 function initRequestLogSearch() {
-
+	var $form = $("#logIndex");
+	var form = $form[0];
+	
+	$form.submit(function(event){
+		event.preventDefault();
+		$form.find("[name=CurrentPage]").val(1);
+		form.submit();
+	});
+	
+	$form.find(".pagination a").click(function(event){
+		event.preventDefault();
+		var page = $(this).text();
+		if ($.isNumeric(page)){
+			$form.find("[name=CurrentPage]").val($(this).text());
+			form.submit();
+		}
+	})
 }
 
 function initRequestLogResults() {

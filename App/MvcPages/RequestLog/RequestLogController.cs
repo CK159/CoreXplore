@@ -20,6 +20,9 @@ namespace App.MvcPages.RequestLog
 				.OrderByDescending(i => i.RequestLogId)
 				.ToPagedList(options.CurrentPage, options.PageSize);
 
+
+			var y = (options.DetailType == RequestLogDetailType.All ? "selected" : "");
+
 			return View(new IndexViewModel
 			{
 				Options = options,
@@ -27,11 +30,11 @@ namespace App.MvcPages.RequestLog
 			});
 		}
 
-		[HttpPost]
+		/*[HttpPost]
 		public IActionResult Index(string message)
 		{
 			return View();
-		}
+		}*/
 
 		public IActionResult DetailPage(int requestLogId)
 		{

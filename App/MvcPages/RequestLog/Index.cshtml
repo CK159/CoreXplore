@@ -27,8 +27,11 @@
 }
 
 <h2>@Model.PagedItems.TotalItemCount requests logged</h2>
-@using (Html.BeginForm("Index", "RequestLog", FormMethod.Post, new {/*Extra params or something*/}))
+@using (Html.BeginForm("Index", "RequestLog", FormMethod.Post, new { id = "logIndex"}))
 {
+	<input type="hidden" name="CurrentPage" value="@Model.Options.CurrentPage" />
+	<input type="hidden" name="PageSize" value="@Model.Options.PageSize" />
+	
 	<div class="panel panel-primary">
 		<div class="panel-heading">
 			<i class="fa fa-search"></i> &nbsp;Log Search
@@ -46,7 +49,7 @@
 						<label>In Progress</label>
 						<div class="checkbox">
 							<label>
-								<input type="checkbox" name="InProgress" @(options.InProgress ? "checked" : "") />
+								<input type="checkbox" name="InProgress" value="true" @(options.InProgress ? "checked" : "") />
 								Requests In Progress
 							</label>
 						</div>
@@ -55,21 +58,22 @@
 					<div class="form-group">
 						<label>Detail Viewer</label>
 						<select id="detailType" name="DetailType" class="form-control">
-							<option value="Modal" @(options.DetailType == RequestLogDetailType.Modal ? "selected" : "")>
+							@*TODO: Make this not dumb - just use the tag helpers or something I guess.*@
+							<!option value="Modal" @(options.DetailType == RequestLogDetailType.Modal ? "selected" : "")>
 								Modal Popup
-							</option>
-							<option value="SamePage" @(options.DetailType == RequestLogDetailType.SamePage ? "selected" : "")>
+							</!option>
+							<!option value="SamePage" @(options.DetailType == RequestLogDetailType.SamePage ? "selected" : "")>
 								Separate Page
-							</option>
-							<option value="NewPage" @(options.DetailType == RequestLogDetailType.NewPage ? "selected" : "")>
+							</!option>
+							<!option value="NewPage" @(options.DetailType == RequestLogDetailType.NewPage ? "selected" : "")>
 								Separate Page (in new tab)
-							</option>
-							<option value="Panel" @(options.DetailType == RequestLogDetailType.Panel ? "selected" : "")>
+							</!option>
+							<!option value="Panel" @(options.DetailType == RequestLogDetailType.Panel ? "selected" : "")>
 								On-page Panel
-							</option>
-							<option value="All" @(options.DetailType == RequestLogDetailType.All ? "selected" : "")>
+							</!option>
+							<!option value="All" @(options.DetailType == RequestLogDetailType.All ? "selected" : "")>
 								All
-							</option>
+							</!option>
 						</select>
 					</div>
 				</div>
@@ -110,6 +114,8 @@
 					</div>
 				</div>
 			</div>
+			
+			<button type="submit" class="btn btn-success btn-block">Search</button>
 		</div>
 	</div>
 

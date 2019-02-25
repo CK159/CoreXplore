@@ -1,6 +1,9 @@
 @using App.MvcPages.RequestLog
+@using X.PagedList
+@using X.PagedList.Mvc.Core
 @model X.PagedList.IPagedList<RequestLogIndexModel>
 
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
 
 <table class="table table-bordered table-striped table-hover js-log-results">
 	<tr>
@@ -38,3 +41,5 @@
 		</tr>
 	}
 </table>
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
