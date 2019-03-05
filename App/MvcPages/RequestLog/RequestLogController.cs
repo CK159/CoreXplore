@@ -28,7 +28,16 @@ namespace App.MvcPages.RequestLog
 			});
 		}
 
-		//TODO: Move to ReuestLogService
+		[HttpPost]
+		public IActionResult IndexResultReload(RequestLogIndexOptions options)
+		{
+			IQueryable<RequestLogIndexModel> items = _service.ReadManyNoTracked<RequestLogIndexModel>();
+			IPagedList<RequestLogIndexModel> pagedItems = IndexFilter(items, options);
+
+			return View("_IndexResultTable", pagedItems);
+		}
+
+		//TODO: Move to RequestLogService
 		private IPagedList<RequestLogIndexModel> IndexFilter(IQueryable<RequestLogIndexModel> model, RequestLogIndexOptions options)
 		{
 			if (options.RequestLogId != null)

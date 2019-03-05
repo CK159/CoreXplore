@@ -8,8 +8,14 @@
 	RequestLogIndexOptions options = Model.Options;
 }
 
+@section Styles
+{
+	<link rel="stylesheet" href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker.min.css" asp-append-version="true">
+}
+
 @section Scripts
 {
+	<script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.min.js" asp-append-version="true"></script>
 	<script src="Index.js" asp-append-version="true"></script>
 }
 
@@ -81,12 +87,12 @@
 				<div class="col-md-3">
 					<div class="form-group">
 						<label>Start Date</label>
-						<input class="form-control" name="StartDate" value="@options.StartDate.ToStandardDate()" />
+						<input class="form-control js-datepicker" name="StartDate" value="@options.StartDate.ToStandardDate()" />
 					</div>
 
 					<div class="form-group">
 						<label>End Date</label>
-						<input class="form-control" name="EndDate" value="@options.EndDate.ToStandardDate()" />
+						<input class="form-control js-datepicker" name="EndDate" value="@options.EndDate.ToStandardDate()" />
 					</div>
 				</div>
 

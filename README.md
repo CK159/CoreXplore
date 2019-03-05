@@ -3,8 +3,8 @@
 
 **Features**
 
-* .Net Core 2.1
-* Entity Framework Core 2.1
+* .Net Core 2.2
+* Entity Framework Core 2.2
 * Core First Migrations
 * AdminLTE theme
 * Microsoft Library Manager tool - Libman
