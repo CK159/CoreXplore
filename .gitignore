@@ -6,3 +6,4 @@ bin/
 *.sln.iml
 *.DotSettings.user
 *.user
+packages
