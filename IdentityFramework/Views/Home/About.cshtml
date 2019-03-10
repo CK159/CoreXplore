@@ -1,6 +1,44 @@
-﻿@{
+﻿@using System.Security.Claims
+@model IdentityFramework.Controllers.HomeController.AboutVM
+
+@{
     ViewBag.Title = "About";
 }
+
+<h2>Current User Roles (@Model.Roles.Count)</h2>
+
+<ul>
+	@foreach (string role in Model.Roles)
+	{
+		<li>@role</li>
+	}
+	
+	@if (Model.Roles.Count == 0)
+	{
+		<li class="text-muted">No roles</li>
+	}
+</ul>
+
+<h2>Current User Claims (@Model.Claims.Count)</h2>
+
+<table class="table table-condensed table-striped table-hover">
+	<tr>
+		<th>Type</th>
+		<th>Value</th>
+		<th>Issuer</th>
+		<th>ToString</th>
+	</tr>
+	@foreach (Claim claim in Model.Claims)
+    {
+	    <tr>
+		    <td>@claim.Type</td>
+		    <td>@claim.Value</td>
+		    <td>@claim.Issuer</td>
+		    <td>@claim.ToString()</td>
+	    </tr>
+    }
+</table>
+
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
