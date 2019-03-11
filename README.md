@@ -26,7 +26,7 @@ If the project has multiple DbContexts in it, you will need to specify the one y
 
 **Create a new migration**
 * Open terminal from Db project!
-* dotnet ef migrations add _Migration_Name_ --context DbCore --startup-project "../App"
+* dotnet ef migrations add `Migration_Name` --context DbCore --startup-project "../App"
     
 **Update database - Apply migrations**
 * Open terminal from Db project!
@@ -34,10 +34,10 @@ If the project has multiple DbContexts in it, you will need to specify the one y
     
 **Generate migration script from some base migration to latest migration**
 * Open terminal from Db project!
-* dotnet ef migrations script _MIGRATION_ID_ --context DbCore --startup-project "../App" > migrate.sql
-* _MIGRATION_ID_ is the full migration name including date stamp such as: 20181112043643_Initial
+* dotnet ef migrations script `MIGRATION_ID` --context DbCore --startup-project "../App" > migrate.sql
+* `MIGRATION_ID` is the full migration name including date stamp such as: 20181112043643_Initial
 * Find migrate.sql and review changes
-* Save sql script in MigrationSQL folder with name of: _Date_MigrationName_.sql
+* Save sql script in MigrationSQL folder with name of: `Date_MigrationName.sql`
 * Run script on database
 
 **Remove migration**
@@ -52,3 +52,11 @@ If the project has multiple DbContexts in it, you will need to specify the one y
 * Change default schema if desired
 * dotnet aspnet-codegenerator identity -dc Db.IdentityCoreContext --files "Account.Register;Account.Login;Account.Logout"
 * dotnet ef migrations add InitialIdentity --context IdentityCoreContext --startup-project "../App"
+
+**Compatibility between Identity non-core and Identity Core**
+* `LockoutEndDateUtc` renamed to `LockoutEnd` in AspNetUsers
+  * This probably means that both columns need to be present
+* Identity Core uses an incompatible password hashing algorithm and auto-upgrades saved password hashes on successful login
+  * Re-enable old V2 hashing algorithm with `services.Configure<PasswordHasherOptions>(options => options.CompatibilityMode = PasswordHasherCompatibilityMode.IdentityV2);` in ConfigureServices()
+* Usage of `NormalizedEmail` and `NormalizedUserName` in AspNetUsers
+  * Identity Core will not allow login without these columns being populated

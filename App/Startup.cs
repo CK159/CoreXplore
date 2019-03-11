@@ -67,6 +67,9 @@ namespace App
 			services.AddAntiforgery(opts => opts.Cookie.Name = "_PHP_XSRF_");
 
 			services.GenericServicesSimpleSetup<DbCore>(Assembly.GetAssembly(typeof(Startup)));
+			
+			//Use older password hashing algorithm for compatibility with Identity non-core
+			services.Configure<PasswordHasherOptions>(options => options.CompatibilityMode = PasswordHasherCompatibilityMode.IdentityV2);
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
