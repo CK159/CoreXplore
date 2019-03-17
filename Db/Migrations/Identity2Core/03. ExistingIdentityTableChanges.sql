@@ -20,13 +20,6 @@ CREATE UNIQUE INDEX [UserNameIndex] ON [AspNetUsers] ([NormalizedUserName]) WHER
 GO
 
 /*
-	AspNetUserRolePermissions table changes
-*/
-GO
-EXEC sp_rename N'AspNetUserRolePermissions.IX_RoleId', N'IX_AspNetUserRolePermissions_RoleId', N'INDEX';
-GO
-
-/*
 	AspNetRoles table changes
 */
 GO
