@@ -13,7 +13,7 @@ namespace Db
 		{
 			base.OnModelCreating(modelBuilder);
 			//modelBuilder.HasDefaultSchema("idCore");
-			modelBuilder.HasDefaultSchema("idFramework");
+			//modelBuilder.HasDefaultSchema("idFramework");
 		}
 	}
 }

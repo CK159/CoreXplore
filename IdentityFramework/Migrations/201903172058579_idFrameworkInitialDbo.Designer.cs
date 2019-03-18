@@ -7,13 +7,13 @@ namespace IdentityFramework.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class idFrameworkInitial : IMigrationMetadata
+    public sealed partial class idFrameworkInitialDbo : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(idFrameworkInitial));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(idFrameworkInitialDbo));
         
         string IMigrationMetadata.Id
         {
-            get { return "201903100545533_idFrameworkInitial"; }
+            get { return "201903172058579_idFrameworkInitialDbo"; }
         }
         
         string IMigrationMetadata.Source

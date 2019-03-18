@@ -3,12 +3,12 @@ namespace IdentityFramework.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class idFrameworkInitial : DbMigration
+    public partial class idFrameworkInitialDbo : DbMigration
     {
         public override void Up()
         {
             CreateTable(
-                "idFramework.AspNetRoles",
+                "dbo.AspNetRoles",
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
@@ -18,20 +18,20 @@ namespace IdentityFramework.Migrations
                 .Index(t => t.Name, unique: true, name: "RoleNameIndex");
             
             CreateTable(
-                "idFramework.AspNetUserRoles",
+                "dbo.AspNetUserRoles",
                 c => new
                     {
                         UserId = c.String(nullable: false, maxLength: 128),
                         RoleId = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => new { t.UserId, t.RoleId })
-                .ForeignKey("idFramework.AspNetRoles", t => t.RoleId, cascadeDelete: true)
-                .ForeignKey("idFramework.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId)
                 .Index(t => t.RoleId);
             
             CreateTable(
-                "idFramework.AspNetUsers",
+                "dbo.AspNetUsers",
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
@@ -51,7 +51,7 @@ namespace IdentityFramework.Migrations
                 .Index(t => t.UserName, unique: true, name: "UserNameIndex");
             
             CreateTable(
-                "idFramework.AspNetUserClaims",
+                "dbo.AspNetUserClaims",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -60,11 +60,11 @@ namespace IdentityFramework.Migrations
                         ClaimValue = c.String(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("idFramework.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
             CreateTable(
-                "idFramework.AspNetUserLogins",
+                "dbo.AspNetUserLogins",
                 c => new
                     {
                         LoginProvider = c.String(nullable: false, maxLength: 128),
@@ -72,28 +72,28 @@ namespace IdentityFramework.Migrations
                         UserId = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => new { t.LoginProvider, t.ProviderKey, t.UserId })
-                .ForeignKey("idFramework.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
         }
         
         public override void Down()
         {
-            DropForeignKey("idFramework.AspNetUserRoles", "UserId", "idFramework.AspNetUsers");
-            DropForeignKey("idFramework.AspNetUserLogins", "UserId", "idFramework.AspNetUsers");
-            DropForeignKey("idFramework.AspNetUserClaims", "UserId", "idFramework.AspNetUsers");
-            DropForeignKey("idFramework.AspNetUserRoles", "RoleId", "idFramework.AspNetRoles");
-            DropIndex("idFramework.AspNetUserLogins", new[] { "UserId" });
-            DropIndex("idFramework.AspNetUserClaims", new[] { "UserId" });
-            DropIndex("idFramework.AspNetUsers", "UserNameIndex");
-            DropIndex("idFramework.AspNetUserRoles", new[] { "RoleId" });
-            DropIndex("idFramework.AspNetUserRoles", new[] { "UserId" });
-            DropIndex("idFramework.AspNetRoles", "RoleNameIndex");
-            DropTable("idFramework.AspNetUserLogins");
-            DropTable("idFramework.AspNetUserClaims");
-            DropTable("idFramework.AspNetUsers");
-            DropTable("idFramework.AspNetUserRoles");
-            DropTable("idFramework.AspNetRoles");
+            DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
+            DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
+            DropIndex("dbo.AspNetUsers", "UserNameIndex");
+            DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
+            DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
+            DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropTable("dbo.AspNetUserLogins");
+            DropTable("dbo.AspNetUserClaims");
+            DropTable("dbo.AspNetUsers");
+            DropTable("dbo.AspNetUserRoles");
+            DropTable("dbo.AspNetRoles");
         }
     }
 }

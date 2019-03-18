@@ -54,9 +54,19 @@ If the project has multiple DbContexts in it, you will need to specify the one y
 * dotnet ef migrations add InitialIdentity --context IdentityCoreContext --startup-project "../App"
 
 **Compatibility between Identity non-core and Identity Core**
+* Goals
+  * Allow existing Identity non-core data to be used in Identity Core
+  * Allow users to log into both non-core and core applications, regardless of where account was created
+* Database migration scripts included in the Db/Migrations/Identity2Core
+  * Based on https://github.com/aspnet/Docs/issues/6425#issuecomment-442180056
+  * Modified to exclude non-standard AspNetUserRolePermissions 
+  * Modified to include schema prefixes on all operations (easier to find & replace if using non-standard schema)
+  * Add script to update existing user records with new required data
 * `LockoutEndDateUtc` renamed to `LockoutEnd` in AspNetUsers
-  * This probably means that both columns need to be present
+  * Remap non-core `LockoutEndDateUtc` field to `LockoutEnd` column
 * Identity Core uses an incompatible password hashing algorithm and auto-upgrades saved password hashes on successful login
-  * Re-enable old V2 hashing algorithm with `services.Configure<PasswordHasherOptions>(options => options.CompatibilityMode = PasswordHasherCompatibilityMode.IdentityV2);` in ConfigureServices()
+  * Re-enable old V2 hashing algorithm with `services.Configure<PasswordHasherOptions>(options => options.CompatibilityMode = PasswordHasherCompatibilityMode.IdentityV2);` in ConfigureServices() of core application
 * Usage of `NormalizedEmail` and `NormalizedUserName` in AspNetUsers
   * Identity Core will not allow login without these columns being populated
+* Handle misc field additions and changes via Microsoft.AspNet.Identity.AspNetCoreCompat applied to non-core project
+  * https://stackoverflow.com/a/53578369
