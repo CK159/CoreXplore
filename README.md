@@ -17,6 +17,8 @@
 * .editorconfig file
 * MvcPages - Conveniently colocate controller, views, models, css, js files together in single folder
 * GenericServices
+* Compatibility between Identity non-core and Identity core (use same account in both frameworks)
+* .Net Core application versioning
 
 # General Info
 
