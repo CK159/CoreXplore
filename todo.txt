@@ -8,9 +8,12 @@ Use GenericServices
 Generic Filter / Sort controller
 	FilterSortContract - object which defines what fields are filter/sortable and the implementations for those operations
 	FilterProp - interface which defines what filter operation to perform - multiple default implementations + custom ones for custom / advanced searching
-Change AppLog Level column type to tinyint
 Fix Serilog Mssql docs - period 30 > "0.00:00:30" and missing ',' in additionalColumns, after second item
+CompareEfSql
+	https://github.com/JonPSmith/EfCore.TestSupport/wiki/9.-EfSchemaCompare
+	https://www.thereformedprogrammer.net/ef-core-taking-full-control-of-the-database-schema/
 
+DONE - Change AppLog Level column type to tinyint
 DONE - Serilog
 DONE - Get exact SQL script required to upgrade database from non-core to core
 DONE - Core Identity using non-core Identity
