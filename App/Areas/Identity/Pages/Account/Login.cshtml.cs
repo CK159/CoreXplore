@@ -74,9 +74,10 @@ namespace App.Areas.Identity.Pages.Account
 				// To enable password failures to trigger account lockout, set lockoutOnFailure: true
 				var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe,
 					lockoutOnFailure: true);
+				
 				if (result.Succeeded)
 				{
-					_logger.LogInformation("User logged in.");
+					_logger.LogInformation("User {username} logged in.", Input.Email);
 					return LocalRedirect(returnUrl);
 				}
 
@@ -87,11 +88,12 @@ namespace App.Areas.Identity.Pages.Account
 
 				if (result.IsLockedOut)
 				{
-					_logger.LogWarning("User account locked out.");
+					_logger.LogWarning("User {username} account locked out.", Input.Email);
 					return RedirectToPage("./Lockout");
 				}
 				else
 				{
+					_logger.LogWarning("User {username} invalid login attempt.", Input.Email);
 					ModelState.AddModelError(string.Empty, "Invalid login attempt.");
 					return Page();
 				}

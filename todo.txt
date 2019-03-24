@@ -12,7 +12,11 @@ Fix Serilog Mssql docs - period 30 > "0.00:00:30" and missing ',' in additionalC
 CompareEfSql
 	https://github.com/JonPSmith/EfCore.TestSupport/wiki/9.-EfSchemaCompare
 	https://www.thereformedprogrammer.net/ef-core-taking-full-control-of-the-database-schema/
+Serilog for sending error emails
+Serilog controller action error handler
+Put database friendly name in site footer - something to translate connection string fragment into friendly name without exposing sensitive info
 
+DONE - Log username for log in, log out, user creation actions
 DONE - Change AppLog Level column type to tinyint
 DONE - Serilog
 DONE - Get exact SQL script required to upgrade database from non-core to core
