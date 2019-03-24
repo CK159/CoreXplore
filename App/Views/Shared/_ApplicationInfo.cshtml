@@ -1,0 +1,20 @@
+@using System.Diagnostics
+@inject Microsoft.AspNetCore.Hosting.IHostingEnvironment HostingEnv
+
+Version: @ApplicationInfo.ApplicationVersion |
+Built: @ApplicationInfo.ApplicationBuildDate.ToStandardDate() |
+Request: @(Context.Request.IsLocal() ? "Local" : "Remote") |
+Config: @HostingEnv.EnvironmentName |
+Compilation: @(MetricsHelper.IsDebug() ? "Debug" : "Release") |
+Debugger:
+@if (Debugger.IsAttached)
+{
+	<b class="text-danger">Attached</b>
+}
+else
+{
+	<text>Detached</text>
+}
+ | RAM:
+<span title="Managed memory allocated by GC">@(Math.Round(GC.GetTotalMemory(false) / 1048576d, 2))MB</span> /
+<span title="Process working set memory">@(Math.Round(Process.GetCurrentProcess().WorkingSet64 / 1048576d, 2))MB</span>

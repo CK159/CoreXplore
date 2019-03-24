@@ -33,9 +33,10 @@ namespace App
 			{
 				AppLogging
 					.ForCategory("Lifecycle")
-					.Information("Starting web host {Application} version {Version}",
-						"CoreXplore",
-						System.Reflection.Assembly.GetExecutingAssembly().GetName().Version);
+					.Information("Starting web host {Application} version {Version} built {BuildDate}",
+						ApplicationInfo.ApplicationName,
+						ApplicationInfo.ApplicationVersion,
+						ApplicationInfo.ApplicationBuildDate);
 
 				CreateWebHostBuilder(args).Build().Run();
 				return 0;
