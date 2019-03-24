@@ -36,8 +36,9 @@ If the project has multiple DbContexts in it, you will need to specify the one y
     
 **Generate migration script from some base migration to latest migration**
 * Open terminal from Db project!
-* dotnet ef migrations script `MIGRATION_ID` --context DbCore --startup-project "../App" > migrate.sql
-* `MIGRATION_ID` is the full migration name including date stamp such as: 20181112043643_Initial
+* dotnet ef migrations script `FROM_MIGRATION_ID` `TO_MIGRATION_ID` --context DbCore --startup-project "../App" > migrate.sql
+* `*_MIGRATION_ID` fields are the full migration names including date stamp such as: 20181112043643_Initial
+* `TO_MIGRATION_ID` is optional
 * Find migrate.sql and review changes
 * Save sql script in MigrationSQL folder with name of: `Date_MigrationName.sql`
 * Run script on database

@@ -8,6 +8,7 @@ namespace Db
 	{
 		public void Configure(EntityTypeBuilder<RequestLog> builder)
 		{
+			builder.ToTable("RequestLog", "log");
 			//builder.Property(b => b.RequestLogId);
 			builder.Property(b => b.DateCreated).IsRequired().HasDefaultValueSql("getdate()");
 			builder.Property(b => b.URL).IsRequired().HasDefaultValue("").HasMaxLength(2048);

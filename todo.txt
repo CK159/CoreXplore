@@ -8,8 +8,10 @@ Use GenericServices
 Generic Filter / Sort controller
 	FilterSortContract - object which defines what fields are filter/sortable and the implementations for those operations
 	FilterProp - interface which defines what filter operation to perform - multiple default implementations + custom ones for custom / advanced searching
-Serilog
+Change AppLog Level column type to tinyint
+Fix Serilog Mssql docs - period 30 > "0.00:00:30" and missing ',' in additionalColumns, after second item
 
+DONE - Serilog
 DONE - Get exact SQL script required to upgrade database from non-core to core
 DONE - Core Identity using non-core Identity
 DONE - AdminLTE > Razor MVC

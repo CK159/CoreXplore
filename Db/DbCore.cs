@@ -27,9 +27,11 @@ namespace Db
 			//Fluent API configuration for all entities
 			modelBuilder.ApplyConfiguration(new MessageConfiguration());
 			modelBuilder.ApplyConfiguration(new RequestLogConfiguration());
+			modelBuilder.ApplyConfiguration(new AppLogConfiguration());
 		}
 
 		public DbSet<Message> Messages { get; set; }
 		public DbSet<RequestLog> RequestLogs { get; set; }
+		public DbSet<AppLog> AppLog { get; set; }
 	}
 }

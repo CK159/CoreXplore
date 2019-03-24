@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 //Allows Rider/Resharper to provide IDE assistance for views in custom location
 [assembly: AspMvcViewLocationFormat("/MvcPages/{1}/{0}.cshtml")]
@@ -73,7 +72,7 @@ namespace App
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 		{
 			app.UseRequestLogging();
 
