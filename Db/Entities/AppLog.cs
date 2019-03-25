@@ -12,6 +12,7 @@ namespace Db
 			builder.ToTable("AppLog", "log");
 
 			builder.Property(b => b.TimeStamp).HasColumnType("datetime");
+			builder.Property(b => b.Properties).HasColumnType("xml");
 		}
 	}
 
