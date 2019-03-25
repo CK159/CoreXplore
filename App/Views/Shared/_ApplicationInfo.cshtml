@@ -3,6 +3,7 @@
 
 Version: @ApplicationInfo.ApplicationVersion |
 Built: @ApplicationInfo.ApplicationBuildDate.ToStandardDate() |
+Database: @Startup.FriendlyDbName | 
 Request: @(Context.Request.IsLocal() ? "Local" : "Remote") |
 Config: @HostingEnv.EnvironmentName |
 Compilation: @(MetricsHelper.IsDebug() ? "Debug" : "Release") |

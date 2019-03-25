@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 using App.Util;
 using Db;
 using GenericServices.Setup;
@@ -19,6 +21,8 @@ namespace App
 {
 	public class Startup
 	{
+		public static string FriendlyDbName = "Unknown";
+		
 		public Startup(IConfiguration configuration)
 		{
 			Configuration = configuration;
@@ -36,16 +40,18 @@ namespace App
 				options.MinimumSameSitePolicy = SameSiteMode.None;
 			});
 
+			string connectionString = Configuration.GetConnectionString("I don't even know. Just give me the data, okay?");
+
 			//Normal context
 			services.AddDbContext<DbCore>(options =>
-				options.UseSqlServer(Configuration.GetConnectionString("I don't even know. Just give me the data, okay?")));
+				options.UseSqlServer(connectionString));
 			//Transient-scoped context primarily for usage in isolating request logging from normal database activity 
 			services.AddDbContext<DbCoreTransient>(options =>
-					options.UseSqlServer(Configuration.GetConnectionString("I don't even know. Just give me the data, okay?")),
+					options.UseSqlServer(connectionString),
 				ServiceLifetime.Transient);
 			//Identity context
 			services.AddDbContext<IdentityCoreContext>(options =>
-				options.UseSqlServer(Configuration.GetConnectionString("I don't even know. Just give me the data, okay?")));
+				options.UseSqlServer(connectionString));
 
 			services.AddDefaultIdentity<IdentityUser>()
 				//.AddDefaultUI(UIFramework.Bootstrap3)
@@ -69,6 +75,16 @@ namespace App
 			
 			//Use older password hashing algorithm for compatibility with Identity non-core
 			services.Configure<PasswordHasherOptions>(options => options.CompatibilityMode = PasswordHasherCompatibilityMode.IdentityV2);
+			
+			//Find friendly DB name
+			foreach (KeyValuePair<string, string> kv in Configuration.GetSection("FriendlyDbNames").AsEnumerable(true))
+			{
+				if (connectionString.Contains(kv.Value, StringComparison.OrdinalIgnoreCase))
+				{
+					FriendlyDbName = kv.Key;
+					break;
+				}
+			}
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

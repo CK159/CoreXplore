@@ -2,7 +2,6 @@ using System.Linq;
 using App.Util;
 using GenericServices;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
 using X.PagedList;
 
 namespace App.MvcPages.RequestLog
