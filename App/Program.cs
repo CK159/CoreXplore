@@ -33,17 +33,25 @@ namespace App
 			{
 				AppLogging
 					.ForCategory("Lifecycle")
-					.Information("Starting web host {Application} version {Version} built {BuildDate}",
+					.Information("Startup of {Application} version {Version} built {BuildDate}",
 						ApplicationInfo.ApplicationName,
 						ApplicationInfo.ApplicationVersion,
 						ApplicationInfo.ApplicationBuildDate);
 
 				CreateWebHostBuilder(args).Build().Run();
+
+				AppLogging
+					.ForCategory("Lifecycle")
+					.Information("Shutdown of {Application}", ApplicationInfo.ApplicationName);
+
 				return 0;
 			}
 			catch (Exception ex)
 			{
-				AppLogging.ForCategory("Lifecycle").Fatal(ex, "Host terminated unexpectedly");
+				AppLogging
+					.ForCategory("Lifecycle")
+					.Fatal(ex, "Application {Application} terminated unexpectedly", ApplicationInfo.ApplicationName);
+
 				return 1;
 			}
 			finally
