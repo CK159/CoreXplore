@@ -16,6 +16,7 @@ Serilog for sending error emails
 Serilog controller action error handler - https://github.com/datalust/serilog-middleware-example/blob/master/src/Datalust.SerilogMiddlewareExample/Diagnostics/SerilogMiddleware.cs
 
 
+DONE - Serilog for sending error emails
 DONE - Put database friendly name in site footer - something to translate connection string fragment into friendly name without exposing sensitive info
 DONE - Log username for log in, log out, user creation actions
 DONE - Change AppLog Level column type to tinyint

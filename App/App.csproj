@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp2.2</TargetFramework>
-		<Version>1.2.2-dev</Version>
+		<Version>1.2.3-dev</Version>
 		<LangVersion>latest</LangVersion>
     </PropertyGroup>
 
@@ -18,6 +18,7 @@
         <PackageReference Include="Serilog.AspNetCore" Version="2.1.1" />
         <PackageReference Include="Serilog.Settings.Configuration" Version="3.0.2-dev-00187" />
         <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
+        <PackageReference Include="Serilog.Sinks.Email" Version="2.3.1-dev-00092" />
         <PackageReference Include="Serilog.Sinks.MSSqlServer" Version="5.1.3-dev-00232" />
         <PackageReference Include="X.PagedList.Mvc.Core" Version="7.6.0" />
     </ItemGroup>

@@ -21,11 +21,19 @@ namespace App
 		public static int Main(string[] args)
 		{
 			Serilog.Debugging.SelfLog.Enable(Console.Error);
+			
+			EmailConfiguration emailConfig = new EmailConfiguration();
+			Configuration.Bind("SerilogEmail", emailConfig);
 
 			LoggerConfiguration config = new LoggerConfiguration()
 				.ReadFrom.Configuration(Configuration)
 				.Enrich.FromLogContext()
-				.WriteTo.Console();
+				.WriteTo.Console()
+				.WriteTo.Email(emailConfig.ToEmailConnectionInfo(),
+					outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] {Message}{NewLine}{Exception}",
+					batchPostingLimit: 10,
+					restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Warning
+				);
 
 			Log.Logger = config.CreateLogger();
 
