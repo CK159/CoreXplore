@@ -14,8 +14,11 @@ CompareEfSql
 	https://www.thereformedprogrammer.net/ef-core-taking-full-control-of-the-database-schema/
 Serilog for sending error emails
 Serilog controller action error handler - https://github.com/datalust/serilog-middleware-example/blob/master/src/Datalust.SerilogMiddlewareExample/Diagnostics/SerilogMiddleware.cs
+Serilog controller action error handler
+Serilog Windows Event Log sink
+Do not break response due to unhandled error in request logging
 
-
+DONE - Private development (and other environment) configuration file
 DONE - Serilog for sending error emails
 DONE - Put database friendly name in site footer - something to translate connection string fragment into friendly name without exposing sensitive info
 DONE - Log username for log in, log out, user creation actions

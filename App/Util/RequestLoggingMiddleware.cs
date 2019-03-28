@@ -54,6 +54,7 @@ namespace App.Util
 				context.Response.Body = responseBody;
 
 				//Process request - Execute request pipeline
+				//TODO: Need to handle uncaught errors here to not break the processing pipeline
 				await _next.Invoke(context);
 
 				//The request is now complete and response data is available - find out what happened

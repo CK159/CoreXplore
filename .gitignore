@@ -7,3 +7,5 @@ bin/
 *.DotSettings.user
 *.user
 packages
+appsettings.Private.json
+appsettings.Production.json

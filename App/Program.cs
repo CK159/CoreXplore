@@ -10,30 +10,37 @@ namespace App
 {
 	public class Program
 	{
+		public static string Env => Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
+		
 		public static IConfiguration Configuration { get; } = new ConfigurationBuilder()
 			.SetBasePath(Directory.GetCurrentDirectory())
-			.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-			.AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json",
-				optional: true, reloadOnChange: true)
+			.AddJsonFile("appsettings.json", false, true)
+			.AddJsonFile($"appsettings.{Env}.json", true, true)
+			.AddJsonFile("appsettings.private.json", true, true)
 			.AddEnvironmentVariables()
 			.Build();
 
 		public static int Main(string[] args)
 		{
 			Serilog.Debugging.SelfLog.Enable(Console.Error);
-			
-			EmailConfiguration emailConfig = new EmailConfiguration();
-			Configuration.Bind("SerilogEmail", emailConfig);
 
 			LoggerConfiguration config = new LoggerConfiguration()
 				.ReadFrom.Configuration(Configuration)
 				.Enrich.FromLogContext()
-				.WriteTo.Console()
-				.WriteTo.Email(emailConfig.ToEmailConnectionInfo(),
-					outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] {Message}{NewLine}{Exception}",
-					batchPostingLimit: 10,
-					restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Warning
+				.WriteTo.Console();
+
+			//Email logging setup
+			EmailConfiguration emailConfig = new EmailConfiguration();
+			Configuration.Bind("SerilogEmail", emailConfig);
+			
+			if (emailConfig.Enabled)
+			{
+				config.WriteTo.Email(emailConfig.ToEmailConnectionInfo(Env),
+					outputTemplate: emailConfig.OutputTemplate,
+					batchPostingLimit: emailConfig.BatchPostingLimit,
+					restrictedToMinimumLevel: emailConfig.RestrictedToMinimumLevel
 				);
+			}
 
 			Log.Logger = config.CreateLogger();
 
@@ -71,6 +78,7 @@ namespace App
 		public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
 			WebHost.CreateDefaultBuilder(args)
 				.UseKestrel(k => k.AddServerHeader = false)
+				.ConfigureAppConfiguration(c => c.AddJsonFile("appsettings.private.json", true, true))
 				.UseSerilog()
 				.UseStartup<Startup>();
 	}
