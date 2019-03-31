@@ -13,7 +13,7 @@ namespace App
 		public static string Env => Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
 		
 		public static IConfiguration Configuration { get; } = new ConfigurationBuilder()
-			.SetBasePath(Directory.GetCurrentDirectory())
+			.SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "Config"))
 			.AddJsonFile("appsettings.json", false, true)
 			.AddJsonFile($"appsettings.{Env}.json", true, true)
 			.AddJsonFile("appsettings.private.json", true, true)
@@ -77,7 +77,11 @@ namespace App
 		public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
 			WebHost.CreateDefaultBuilder(args)
 				.UseKestrel(k => k.AddServerHeader = false)
-				.ConfigureAppConfiguration(c => c.AddJsonFile("appsettings.private.json", true, true))
+				.ConfigureAppConfiguration(c =>
+				{
+					c.SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "Config"));
+					c.AddJsonFile("appsettings.private.json", true, true);
+				})
 				.UseSerilog()
 				.UseStartup<Startup>();
 	}
