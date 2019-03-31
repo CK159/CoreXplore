@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp2.2</TargetFramework>
-		<Version>1.2.3-dev</Version>
+		<Version>1.2.4-dev</Version>
 		<LangVersion>latest</LangVersion>
     </PropertyGroup>
 
@@ -39,6 +39,10 @@
 		</Content>
 		<Content Include="MvcPages\**\*.css">
 		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+		</Content>
+		<!--Never deploy provate config file-->
+		<Content Update="appsettings.Private.json">
+			<CopyToPublishDirectory>Never</CopyToPublishDirectory>
 		</Content>
 	</ItemGroup>
 
