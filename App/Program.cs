@@ -26,8 +26,7 @@ namespace App
 
 			LoggerConfiguration config = new LoggerConfiguration()
 				.ReadFrom.Configuration(Configuration)
-				.Enrich.FromLogContext()
-				.WriteTo.Console();
+				.Enrich.FromLogContext();
 
 			//Email logging setup
 			EmailConfiguration emailConfig = new EmailConfiguration();

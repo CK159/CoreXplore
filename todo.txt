@@ -12,12 +12,16 @@ Fix Serilog Mssql docs - period 30 > "0.00:00:30" and missing ',' in additionalC
 CompareEfSql
 	https://github.com/JonPSmith/EfCore.TestSupport/wiki/9.-EfSchemaCompare
 	https://www.thereformedprogrammer.net/ef-core-taking-full-control-of-the-database-schema/
-Serilog for sending error emails
 Serilog controller action error handler - https://github.com/datalust/serilog-middleware-example/blob/master/src/Datalust.SerilogMiddlewareExample/Diagnostics/SerilogMiddleware.cs
-Serilog controller action error handler
-Serilog Windows Event Log sink
 Do not break response due to unhandled error in request logging
+Fix "The description for Event ID XXXX from source CoreXplore App cannot be found" when logging to Windows event log
+Add a script or something that creates necessary Windows event log entries for initial run / deploy
+Serilog.Exceptions enricher
+Move all config files into a config folder
+Exclude appsettings.Private from deployment
+Log properties to email events with {properties:j} or something - https://github.com/serilog/serilog/wiki/Formatting-Output
 
+DONE - Serilog Windows Event Log sink
 DONE - Private development (and other environment) configuration file
 DONE - Serilog for sending error emails
 DONE - Put database friendly name in site footer - something to translate connection string fragment into friendly name without exposing sensitive info
