@@ -16,7 +16,7 @@ namespace App.Util
 		public bool EnableSsl { get; set; } = true;
 		public int Port { get; set; } = 465;
 		public string Subject { get; set; } = "CoreXplore {0} Notification";
-		public string OutputTemplate { get; set; } = "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] {Message}{NewLine}{Exception}";
+		public string OutputTemplate { get; set; } = "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz}{NewLine}[{Level}] {Message}{NewLine}{Exception}{NewLine}{Properties:j}";
 		public int BatchPostingLimit { get; set; } = 10;
 		public LogEventLevel RestrictedToMinimumLevel { get; set; } = LogEventLevel.Warning;
 

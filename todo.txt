@@ -19,8 +19,8 @@ Add a script or something that creates necessary Windows event log entries for i
 Serilog.Exceptions enricher
 Move all config files into a config folder
 Exclude appsettings.Private from deployment
-Log properties to email events with {properties:j} or something - https://github.com/serilog/serilog/wiki/Formatting-Output
 
+DONE - Log properties to email events with {properties:j} or something - https://github.com/serilog/serilog/wiki/Formatting-Output
 DONE - Serilog Windows Event Log sink
 DONE - Private development (and other environment) configuration file
 DONE - Serilog for sending error emails
