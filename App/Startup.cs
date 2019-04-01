@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using App.MvcPages.RequestLog;
 using App.Util;
 using Db;
 using GenericServices.Setup;
@@ -21,14 +22,13 @@ namespace App
 {
 	public class Startup
 	{
+		public IConfiguration Configuration { get; }
 		public static string FriendlyDbName = "Unknown";
 		
 		public Startup(IConfiguration configuration)
 		{
 			Configuration = configuration;
 		}
-
-		public IConfiguration Configuration { get; }
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
@@ -75,16 +75,15 @@ namespace App
 			
 			//Use older password hashing algorithm for compatibility with Identity non-core
 			services.Configure<PasswordHasherOptions>(options => options.CompatibilityMode = PasswordHasherCompatibilityMode.IdentityV2);
-			
-			//Find friendly DB name
-			foreach (KeyValuePair<string, string> kv in Configuration.GetSection("FriendlyDbNames").AsEnumerable(true))
-			{
-				if (connectionString.Contains(kv.Value, StringComparison.OrdinalIgnoreCase))
-				{
-					FriendlyDbName = kv.Key;
-					break;
-				}
-			}
+
+			ConfigureDi(services);
+			FindFriendlyDbName(connectionString);
+		}
+
+		//Register all the services and other dependency injection entities used in the app 
+		private void ConfigureDi(IServiceCollection services)
+		{
+			services.AddScoped<RequestLogService>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -130,6 +129,18 @@ namespace App
 				//Full routes show url.com/controller/action.php
 				routes.MapRoute(name: "lolphp", template: "{controller}/{action}.php/{id?}");
 			});
+		}
+
+		private void FindFriendlyDbName(string connectionString)
+		{
+			foreach (KeyValuePair<string, string> kv in Configuration.GetSection("FriendlyDbNames").AsEnumerable(true))
+			{
+				if (connectionString.Contains(kv.Value, StringComparison.OrdinalIgnoreCase))
+				{
+					FriendlyDbName = kv.Key;
+					break;
+				}
+			}
 		}
 	}
 }
