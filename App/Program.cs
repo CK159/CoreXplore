@@ -25,8 +25,7 @@ namespace App
 			Serilog.Debugging.SelfLog.Enable(Console.Error);
 
 			LoggerConfiguration config = new LoggerConfiguration()
-				.ReadFrom.Configuration(Configuration)
-				.Enrich.FromLogContext();
+				.ReadFrom.Configuration(Configuration);
 
 			//Email logging setup
 			EmailConfiguration emailConfig = new EmailConfiguration();
