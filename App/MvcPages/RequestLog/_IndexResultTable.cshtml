@@ -3,7 +3,7 @@
 @using X.PagedList.Mvc.Core
 @model X.PagedList.IPagedList<RequestLogIndexModel>
 
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
+@Html.PagedListPager(Model, page => page.ToString())
 
 <table class="table table-bordered table-striped table-hover js-log-results">
 	<tr>
@@ -42,4 +42,9 @@
 	}
 </table>
 
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
+@Html.PagedListPager(Model, page => page.ToString())
+
+<div class="result-count">
+	Page @Model.PageNumber of @Model.PageCount<br />
+	@Model.TotalItemCount records
+</div>

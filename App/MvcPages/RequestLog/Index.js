@@ -9,15 +9,19 @@ function initRequestLogSearch(form) {
 	form.submit((event) => {
 		event.preventDefault();
 
-		form.find("[name=CurrentPage]").val(1);
-		indexResultReload(form);
+		indexResultReload(form, 1);
 	});
-	
+
 	form.find(".js-datepicker").defaultDatepicker();
 }
 
-function indexResultReload(form) {
+function indexResultReload(form, page) {
+	if (typeof page === "undefined") {
+		page = 1;
+	}
+	
 	var formData = form.serializeArray();
+	formData.push({name: "CurrentPage", value: page});
 
 	$.webMvc({
 		url: "/RequestLog/IndexResultReload.php",
@@ -33,13 +37,13 @@ function indexResultReload(form) {
 function initRequestLogResults(form) {
 	form.find(".pagination a").click(function(event) {
 		event.preventDefault();
-		var page = $(this).text();
+		var page = $(this).attr("href");
+		
 		if ($.isNumeric(page)) {
-			form.find("[name=CurrentPage]").val($(this).text());
-			indexResultReload(form);
+			indexResultReload(form, page);
 		}
 	});
-	
+
 	var typeSelector = $("#detailType");
 
 	$(".js-log-results .js-log-link").click(function(event) {

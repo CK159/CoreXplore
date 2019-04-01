@@ -1,0 +1,79 @@
+@using App.MvcPages.RequestLog
+@model App.MvcPages.RequestLog.RequestLogIndexOptions
+
+<div class="row">
+	<div class="col-md-3">
+		<div class="form-group">
+			<label>Request Log ID</label>
+			<input class="form-control" name="RequestLogId" value="@Model.RequestLogId" />
+		</div>
+
+		<div class="form-group">
+			<label>In Progress</label>
+			<div class="checkbox">
+				<label>
+					<input type="checkbox" name="InProgress" value="true" @(Model.InProgress ? "checked" : "") />
+					Requests In Progress
+				</label>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label>Detail Viewer</label>
+			<select id="detailType" name="DetailType" class="form-control">
+				@*TODO: Make this not dumb - just use the tag helpers or something I guess.*@
+				<!option value="Modal" @(Model.DetailType == RequestLogDetailType.Modal ? "selected" : "")>
+					Modal Popup
+				</!option>
+				<!option value="SamePage" @(Model.DetailType == RequestLogDetailType.SamePage ? "selected" : "")>
+					Separate Page
+				</!option>
+				<!option value="NewPage" @(Model.DetailType == RequestLogDetailType.NewPage ? "selected" : "")>
+					Separate Page (in new tab)
+				</!option>
+				<!option value="Panel" @(Model.DetailType == RequestLogDetailType.Panel ? "selected" : "")>
+					On-page Panel
+				</!option>
+				<!option value="All" @(Model.DetailType == RequestLogDetailType.All ? "selected" : "")>
+					All
+				</!option>
+			</select>
+		</div>
+	</div>
+
+	<div class="col-md-3">
+		<div class="form-group">
+			<label>Start Date</label>
+			<input class="form-control js-datepicker" name="StartDate" value="@Model.StartDate.ToStandardDate()" />
+		</div>
+
+		<div class="form-group">
+			<label>End Date</label>
+			<input class="form-control js-datepicker" name="EndDate" value="@Model.EndDate.ToStandardDate()" />
+		</div>
+	</div>
+
+	<div class="col-md-3">
+		<div class="form-group">
+			<label>Request Method</label>
+			<input class="form-control" name="RequestMethod" value="@Model.RequestMethod" />
+		</div>
+
+		<div class="form-group">
+			<label>Response Status</label>
+			<input class="form-control" name="ResponseStatus" value="@Model.ResponseStatus" />
+		</div>
+	</div>
+
+	<div class="col-md-3">
+		<div class="form-group">
+			<label>URL</label>
+			<input class="form-control" name="URL" value="@Model.URL" />
+		</div>
+
+		<div class="form-group">
+			<label>IP</label>
+			<input class="form-control" name="IP" value="@Model.IP" />
+		</div>
+	</div>
+</div>
