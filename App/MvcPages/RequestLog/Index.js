@@ -1,4 +1,4 @@
-$(function() {
+$(() => {
 	var form = $("#logIndex");
 	initRequestLogSearch(form);
 	initRequestLogResults(form);
@@ -6,7 +6,7 @@ $(function() {
 
 //JS for the setup of the search inputs
 function initRequestLogSearch(form) {
-	form.submit(function(event) {
+	form.submit((event) => {
 		event.preventDefault();
 
 		form.find("[name=CurrentPage]").val(1);
@@ -19,20 +19,14 @@ function initRequestLogSearch(form) {
 function indexResultReload(form) {
 	var formData = form.serializeArray();
 
-	$.ajax({
-		type: "POST",
+	$.webMvc({
 		url: "/RequestLog/IndexResultReload.php",
 		data: formData,
-		dataType: "html"
-	})
-		.done(function(data) {
-			$("#logResultTable").html(data);
-			initRequestLogResults(form);
-		})
-		.fail(standardFail)
-		.always(function() {
-
-		});
+		failTo: "alert"
+	}).done((data) => {
+		$("#logResultTable").html(data);
+		initRequestLogResults(form);
+	});
 }
 
 //JS setup and re-setup for the search result table
@@ -74,27 +68,21 @@ function initRequestLogResults(form) {
 }
 
 function loadRequestLogPanel(requestLogID) {
-	loadRequestLog(requestLogID, "DetailPanel", function(data) {
+	loadRequestLog(requestLogID, "DetailPanel", (data) => {
 		$("#requestLogDetailPanel").html(data);
 	});
 }
 
 function loadRequestLogModal(requestLogID) {
-	loadRequestLog(requestLogID, "DetailModal", function(data) {
+	loadRequestLog(requestLogID, "DetailModal", (data) => {
 		$("#requestLogDetailModal").html(data).modal("show");
 	});
 }
 
 function loadRequestLog(requestLogID, type, successCallback) {
-	$.ajax({
-		type: "POST",
+	$.webMvc({
 		url: "/RequestLog/" + type + ".php",
 		data: {requestLogID: requestLogID},
-		dataType: "html"
-	})
-		.done(successCallback)
-		.fail(standardFail)
-		.always(function() {
-
-		});
+		failTo: "alert"
+	}).done(successCallback);
 }
