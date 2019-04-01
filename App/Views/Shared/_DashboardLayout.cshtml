@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
+
+@{
+	string displayName = UserManager.GetUserName(User) ?? "Anonymous";
+}
+
+<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8" />
@@ -151,7 +158,7 @@
 						<!-- The user image in the navbar-->
 						<img src="~/images/default-50x50.gif" class="user-image" alt="User Image">
 						<!-- hidden-xs hides the username on small devices so only the image appears. -->
-						<span class="hidden-xs">Alexander Pierce</span>
+						<span class="hidden-xs">@displayName</span>
 					</a>
 					<ul class="dropdown-menu">
 						<!-- The user image in the menu -->
@@ -159,7 +166,7 @@
 							<img src="~/images/default-50x50.gif" class="img-circle" alt="User Image">
 
 							<p>
-								Alexander Pierce - Web Developer
+								@displayName
 								<small>Member since Nov. 2012</small>
 							</p>
 						</li>
@@ -210,7 +217,7 @@
 				<img src="~/images/default-50x50.gif" class="img-circle" alt="User Image">
 			</div>
 			<div class="pull-left info">
-				<p>Alexander Pierce</p>
+				<p>@displayName</p>
 				<!-- Status -->
 				<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
 			</div>

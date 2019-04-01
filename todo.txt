@@ -2,7 +2,6 @@ Admin page for viewing Request Log
 Allow editing Request Log
 Identity claims and roles or something
 	Makes non-core work with core: https://stackoverflow.com/a/53578369
-Current logged in username in the dashboard headers
 System for managing active page in dashboard menu
 Use GenericServices
 Generic Filter / Sort controller
@@ -17,6 +16,7 @@ Do not break response due to unhandled error in request logging
 Fix "The description for Event ID XXXX from source CoreXplore App cannot be found" when logging to Windows event log
 Add a script or something that creates necessary Windows event log entries for initial run / deploy
 
+DONE - Current logged in username in the dashboard headers
 DONE - Serilog.Exceptions enricher
 DONE - Move all config files into a config folder
 DONE - Exclude appsettings.Private from deployment
