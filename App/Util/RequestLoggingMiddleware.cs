@@ -31,6 +31,9 @@ namespace App.Util
 {
 	public class RequestLoggingMiddleware
 	{
+		private const int RequestLogLength = 2048;
+		private const int ResponseLogLength = 2048;
+		
 		private readonly RequestDelegate _next;
 
 		public RequestLoggingMiddleware(RequestDelegate next)
@@ -53,18 +56,30 @@ namespace App.Util
 			{
 				context.Response.Body = responseBody;
 
-				//Process request - Execute request pipeline
-				//TODO: Need to handle uncaught errors here to not break the processing pipeline
-				await _next.Invoke(context);
+				try
+				{
+					//Process request - Execute request pipeline
+					await _next.Invoke(context);
 
-				//The request is now complete and response data is available - find out what happened
-				await LogResponse(context.Response, log, timer, dbc);
-
-				//Copy the contents of the new stream (which contains the response)
-				//to the original stream, which is then returned to the client.
-				await responseBody.CopyToAsync(originalRespBody);
-				//Seems like a good idea to put things back in case this isn't the very first middleware in the chain
-				context.Response.Body = originalRespBody;
+					//The request is now complete and response data is available - find out what happened
+					await LogResponse(context.Response, log, timer, dbc);
+				}
+				catch (Exception ex)
+				{
+					//An exception was thrown and nothing else caught it.
+					//As a last-resort measure, close out this log entry so that it doesn't look like it never completed.
+					//This is not a substitute for proper error handling
+					await LogResponse(context.Response, log, timer, dbc, ex.Message);
+					throw;
+				}
+				finally
+				{
+					//Copy the contents of the new stream (which contains the response)
+					//to the original stream, which is then returned to the client.
+					await responseBody.CopyToAsync(originalRespBody);
+					//Seems like a good idea to put things back in case this isn't the very first middleware in the chain
+					context.Response.Body = originalRespBody;
+				}
 			}
 		}
 
@@ -90,7 +105,7 @@ namespace App.Util
 
 			//Save a bit of it for logging
 			if (!requestAsText.IsNullOrWhitespace())
-				log.RequestText = requestAsText.Left(2048);
+				log.RequestText = requestAsText.Left(RequestLogLength);
 
 			//Reset the request stream back to the beginning
 			req.Body.Seek(0, SeekOrigin.Begin);
@@ -101,10 +116,13 @@ namespace App.Util
 			return log;
 		}
 
-		private async Task LogResponse(HttpResponse resp, RequestLog log, Stopwatch timer, DbCore dbc)
+		private async Task LogResponse(HttpResponse resp, RequestLog log, Stopwatch timer,
+			DbCore dbc, string ExceptionMessage = null)
 		{
+			bool hasException = ExceptionMessage != null;
+
 			dbc.Entry(log);
-			log.ResponseStatus = resp.StatusCode;
+			log.ResponseStatus = hasException ? 500 : resp.StatusCode;
 			log.ResponseContentType = resp.Headers.GetValueOrDefault("Content-Type", "");
 			//ContentLength not always set. Fallback to buffer length if unset
 			log.ResponseSize = (int)(resp.ContentLength ?? resp.Body.Length);
@@ -118,7 +136,14 @@ namespace App.Util
 			resp.Body.Seek(0, SeekOrigin.Begin);
 
 			if (!responseAsText.IsNullOrWhitespace())
-				log.ResponseText = responseAsText.Left(2048);
+			{
+				log.ResponseText = responseAsText.Left(ResponseLogLength);
+			}
+			else if (hasException)
+			{
+				log.ResponseText = "Unhandled exception: ";
+				log.ResponseText += ExceptionMessage.Left(ResponseLogLength - log.ResponseText.Length);
+			}
 
 			//Do as much work as possible before getting the time
 			log.ResponseMs = (decimal)timer.Elapsed.TotalMilliseconds;

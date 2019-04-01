@@ -7,7 +7,7 @@ namespace App.Util
 	{
 		/// <summary>
 		/// Returns first N characters of string.
-		/// Returns input unmodified if input length is less than upToLength.
+		/// Returns input unmodified if input length is less than <paramref name="upToLength"/>.
 		/// </summary>
 		/// <param name="str"></param>
 		/// <param name="upToLength"></param>
@@ -22,7 +22,7 @@ namespace App.Util
 
 		/// <summary>
 		/// Returns last N characters of string.
-		/// Returns input unmodified if input length is less than upToLength.
+		/// Returns input unmodified if input length is less than <paramref name="upToLength"/>.
 		/// </summary>
 		/// <param name="str"></param>
 		/// <param name="upToLength"></param>
