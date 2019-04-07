@@ -16,7 +16,7 @@ namespace App
 			.SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "Config"))
 			.AddJsonFile("appsettings.json", false, true)
 			.AddJsonFile($"appsettings.{Env}.json", true, true)
-			.AddJsonFile("appsettings.private.json", true, true)
+			.AddJsonFile("appsettings.Private.json", true, true)
 			.AddEnvironmentVariables()
 			.Build();
 
