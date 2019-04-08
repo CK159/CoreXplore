@@ -19,7 +19,7 @@
 * GenericServices
 * Compatibility between Identity non-core and Identity core (use same account in both frameworks)
 * .Net Core application versioning
-* Serilog with MSSQL and Email logging
+* Serilog with MSSQL, Email, and Windows Event Log logging
 
 # General Info
 
@@ -29,15 +29,15 @@ If the project has multiple DbContexts in it, you will need to specify the one y
 
 **Create a new migration**
 * Open terminal from Db project!
-* dotnet ef migrations add `Migration_Name` --context DbCore --startup-project "../App"
+* dotnet ef migrations add `Migration_Name` --context DbCore
     
 **Update database - Apply migrations**
 * Open terminal from Db project!
-* dotnet ef database update --context DbCore --startup-project "../App"
+* dotnet ef database update --context DbCore
     
 **Generate migration script from some base migration to latest migration**
 * Open terminal from Db project!
-* dotnet ef migrations script `FROM_MIGRATION_ID` `TO_MIGRATION_ID` --context DbCore --startup-project "../App" > migrate.sql
+* dotnet ef migrations script `FROM_MIGRATION_ID` `TO_MIGRATION_ID` --context DbCore \> migrate.sql
 * `*_MIGRATION_ID` fields are the full migration names including date stamp such as: 20181112043643_Initial
 * `TO_MIGRATION_ID` is optional
 * Find migrate.sql and review changes
@@ -46,7 +46,7 @@ If the project has multiple DbContexts in it, you will need to specify the one y
 
 **Remove migration**
 * Open terminal from Db project!
-* dotnet ef migrations remove --context DbCore --startup-project "../App"
+* dotnet ef migrations remove --context DbCore
 
 **Add & Scaffold Identity**
 * Add Microsoft.VisualStudio.Web.CodeGeneration.Design package to web app project
@@ -55,7 +55,7 @@ If the project has multiple DbContexts in it, you will need to specify the one y
 * Create DbContext class that inherits from IdentityDbContext
 * Change default schema if desired
 * dotnet aspnet-codegenerator identity -dc Db.IdentityCoreContext --files "Account.Register;Account.Login;Account.Logout"
-* dotnet ef migrations add InitialIdentity --context IdentityCoreContext --startup-project "../App"
+* dotnet ef migrations add InitialIdentity --context IdentityCoreContext
 
 **Compatibility between Identity non-core and Identity Core**
 * Goals

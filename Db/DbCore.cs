@@ -4,10 +4,6 @@ namespace Db
 {
 	public class DbCore : DbContext
 	{
-		/*public Dbc()
-		{
-		}*/
-
 		public DbCore(DbContextOptions<DbCore> options) : base(options)
 		{
 		}

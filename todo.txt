@@ -15,7 +15,9 @@ Serilog controller action error handler - https://github.com/datalust/serilog-mi
 Fix "The description for Event ID XXXX from source CoreXplore App cannot be found" when logging to Windows event log
 Add a script or something that creates necessary Windows event log entries for initial run / deploy
 Make JSON in email notifications have friendly formatting with newlines and indentation
+Package Updates
 
+DONE - Switch to IDesignTimeDbContextFactory
 DONE - Do not break response due to unhandled error in request logging
 DONE - Current logged in username in the dashboard headers
 DONE - Serilog.Exceptions enricher
