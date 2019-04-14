@@ -74,3 +74,25 @@ If the project has multiple DbContexts in it, you will need to specify the one y
   * Identity Core will not allow login without these columns being populated
 * Handle misc field additions and changes via Microsoft.AspNet.Identity.AspNetCoreCompat applied to non-core project
   * https://stackoverflow.com/a/53578369
+
+**Windows Event Log Information**
+* Event Log
+  * Standard or custom category for recording events
+  * Standard ones: Application, Security, System, etc
+  * You can also make custom ones
+* Event Source: 
+  * Sub-category
+  * Generally identifies application or subsysystem
+  * This is what appears in the Source column in the event viewer
+  * Each event source is registered to an event log upon creation
+  * You must specify an existing event source when writing new events
+
+Powershell commands (run as administrator):
+* List standard and custom event logs + extra info
+  * Get-EventLog -List
+* Create new logs and sources
+  * New-EventLog -source "My app source name" -LogName "Custom event log name"
+  * You need to restart before the new event log will work
+* Remove event log things
+  * Remove-EventLog -Source "My app source name"
+  * Remove-EventLog -LogName "Custom event log name"

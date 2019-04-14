@@ -7,16 +7,20 @@ Use GenericServices
 Generic Filter / Sort controller
 	FilterSortContract - object which defines what fields are filter/sortable and the implementations for those operations
 	FilterProp - interface which defines what filter operation to perform - multiple default implementations + custom ones for custom / advanced searching
-Fix Serilog Mssql docs - period 30 > "0.00:00:30" and missing ',' in additionalColumns, after second item
 CompareEfSql
 	https://github.com/JonPSmith/EfCore.TestSupport/wiki/9.-EfSchemaCompare
 	https://www.thereformedprogrammer.net/ef-core-taking-full-control-of-the-database-schema/
+Fix EF Compare unit test
 Serilog controller action error handler - https://github.com/datalust/serilog-middleware-example/blob/master/src/Datalust.SerilogMiddlewareExample/Diagnostics/SerilogMiddleware.cs
-Fix "The description for Event ID XXXX from source CoreXplore App cannot be found" when logging to Windows event log
-Add a script or something that creates necessary Windows event log entries for initial run / deploy
 Make JSON in email notifications have friendly formatting with newlines and indentation
-Package Updates
+Enum-based security
+Bootstrap popup for errors and messages
+Use dependency injection for application info
 
+DONE - Fix "The description for Event ID XXXX from source CoreXplore App cannot be found" when logging to Windows event log
+DONE - Add a script or something that creates necessary Windows event log entries for initial run / deploy
+DONE - Fix Serilog Mssql docs - period 30 > "0.00:00:30" and missing ',' in additionalColumns, after second item
+DONE - Package Updates
 DONE - Switch to IDesignTimeDbContextFactory
 DONE - Do not break response due to unhandled error in request logging
 DONE - Current logged in username in the dashboard headers
