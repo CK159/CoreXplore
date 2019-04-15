@@ -6,13 +6,24 @@ namespace App.Util
 {
 	public class ApplicationInfo
 	{
-		public static string ApplicationName => "CoreXplore";
+		public string ApplicationName { get; private set; }
 
-		public static string ApplicationVersion => Assembly.GetExecutingAssembly()
-			.GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
+		public string ApplicationVersion { get; private set; }
 
-		//This is not the best - the file properties can be modified by external tooling but there's no default built-in date stamp any more
-		public static DateTime ApplicationBuildDate => File.GetLastWriteTime(Assembly.GetExecutingAssembly().Location);
+		public DateTime ApplicationBuildDate { get; private set; }
+		
+		public static ApplicationInfo BuildApplicationInfo()
+		{
+			return new ApplicationInfo
+			{
+				ApplicationName = "CoreXplore",
+				ApplicationVersion = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>()
+					.InformationalVersion,
+				
+				//This is not the best - the file properties can be modified by external tooling but there's no default built-in date stamp any more
+				ApplicationBuildDate = File.GetLastWriteTime(Assembly.GetExecutingAssembly().Location)
+			};
+		}
 
 		[Obsolete("This method will not work if deterministic builds are enabled for the assembly (the default in in .NET Core)")]
 		public static DateTime RetrieveLinkerTimestamp(string filePath)

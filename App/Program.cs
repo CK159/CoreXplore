@@ -41,21 +41,22 @@ namespace App
 			}
 
 			Log.Logger = config.CreateLogger();
+			ApplicationInfo info = ApplicationInfo.BuildApplicationInfo();
 
 			try
 			{
 				AppLogging
 					.ForCategory("Lifecycle")
 					.Information("Startup of {Application} version {Version} built {BuildDate}",
-						ApplicationInfo.ApplicationName,
-						ApplicationInfo.ApplicationVersion,
-						ApplicationInfo.ApplicationBuildDate);
+						info.ApplicationName,
+						info.ApplicationVersion,
+						info.ApplicationBuildDate);
 
 				CreateWebHostBuilder(args).Build().Run();
 
 				AppLogging
 					.ForCategory("Lifecycle")
-					.Information("Shutdown of {Application}", ApplicationInfo.ApplicationName);
+					.Information("Shutdown of {Application}", info.ApplicationName);
 
 				return 0;
 			}
@@ -63,7 +64,7 @@ namespace App
 			{
 				AppLogging
 					.ForCategory("Lifecycle")
-					.Fatal(ex, "Application {Application} terminated unexpectedly", ApplicationInfo.ApplicationName);
+					.Fatal(ex, "Application {Application} terminated unexpectedly", info.ApplicationName);
 
 				return 1;
 			}

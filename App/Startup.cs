@@ -83,6 +83,7 @@ namespace App
 		//Register all the services and other dependency injection entities used in the app 
 		private void ConfigureDi(IServiceCollection services)
 		{
+			services.AddSingleton(ApplicationInfo.BuildApplicationInfo());
 			services.AddScoped<RequestLogService>();
 		}
 

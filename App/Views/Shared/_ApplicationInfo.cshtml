@@ -1,8 +1,9 @@
 @using System.Diagnostics
 @inject Microsoft.AspNetCore.Hosting.IHostingEnvironment HostingEnv
+@inject ApplicationInfo AppInfo
 
-Version: @ApplicationInfo.ApplicationVersion |
-Built: @ApplicationInfo.ApplicationBuildDate.ToStandardDate() |
+Version: @AppInfo.ApplicationVersion |
+Built: @AppInfo.ApplicationBuildDate.ToStandardDate() |
 Database: @Startup.FriendlyDbName | 
 Request: @(Context.Request.IsLocal() ? "Local" : "Remote") |
 Config: @HostingEnv.EnvironmentName |
