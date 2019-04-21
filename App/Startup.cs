@@ -23,7 +23,6 @@ namespace App
 	public class Startup
 	{
 		public IConfiguration Configuration { get; }
-		public static string FriendlyDbName = "Unknown";
 		
 		public Startup(IConfiguration configuration)
 		{
@@ -33,13 +32,6 @@ namespace App
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.Configure<CookiePolicyOptions>(options =>
-			{
-				// This lambda determines whether user consent for non-essential cookies is needed for a given request.
-				options.CheckConsentNeeded = context => true;
-				options.MinimumSameSitePolicy = SameSiteMode.None;
-			});
-
 			string connectionString = Configuration.GetConnectionString("I don't even know. Just give me the data, okay?");
 
 			//Normal context
@@ -75,15 +67,16 @@ namespace App
 			
 			//Use older password hashing algorithm for compatibility with Identity non-core
 			services.Configure<PasswordHasherOptions>(options => options.CompatibilityMode = PasswordHasherCompatibilityMode.IdentityV2);
-
+			
+			services.AddSingleton(ApplicationInfo.BuildApplicationInfo()
+				.AddFriendlyDbName(connectionString, Configuration.GetSection("FriendlyDbNames")));
+			
 			ConfigureDi(services);
-			FindFriendlyDbName(connectionString);
 		}
 
 		//Register all the services and other dependency injection entities used in the app 
 		private void ConfigureDi(IServiceCollection services)
 		{
-			services.AddSingleton(ApplicationInfo.BuildApplicationInfo());
 			services.AddScoped<RequestLogService>();
 		}
 
@@ -101,6 +94,9 @@ namespace App
 				app.UseExceptionHandler("/Home/Error");
 				app.UseHsts();
 			}
+			
+			//Will return errors in ProblemDetails format for any API and AJAX-type requests
+			//TODO: app.UseApiExceptionHandler();
 
 			app.Use((context, next) =>
 			{
@@ -119,8 +115,6 @@ namespace App
 			//Serve *.js and *.css files from the MvcPages folder
 			app.UseMvcPagesStaticFiles();
 
-			app.UseCookiePolicy();
-
 			app.UseAuthentication();
 
 			app.UseMvc(routes =>
@@ -130,18 +124,6 @@ namespace App
 				//Full routes show url.com/controller/action.php
 				routes.MapRoute(name: "lolphp", template: "{controller}/{action}.php/{id?}");
 			});
-		}
-
-		private void FindFriendlyDbName(string connectionString)
-		{
-			foreach (KeyValuePair<string, string> kv in Configuration.GetSection("FriendlyDbNames").AsEnumerable(true))
-			{
-				if (connectionString.Contains(kv.Value, StringComparison.OrdinalIgnoreCase))
-				{
-					FriendlyDbName = kv.Key;
-					break;
-				}
-			}
 		}
 	}
 }

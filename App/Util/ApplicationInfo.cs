@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using Microsoft.Extensions.Configuration;
 
 namespace App.Util
 {
@@ -11,18 +13,40 @@ namespace App.Util
 		public string ApplicationVersion { get; private set; }
 
 		public DateTime ApplicationBuildDate { get; private set; }
-		
+
+		public string FriendlyDbName { get; set; } = "Unknown";
+
 		public static ApplicationInfo BuildApplicationInfo()
 		{
-			return new ApplicationInfo
+			ApplicationInfo info = new ApplicationInfo
 			{
 				ApplicationName = "CoreXplore",
 				ApplicationVersion = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>()
 					.InformationalVersion,
-				
 				//This is not the best - the file properties can be modified by external tooling but there's no default built-in date stamp any more
 				ApplicationBuildDate = File.GetLastWriteTime(Assembly.GetExecutingAssembly().Location)
 			};
+			
+			return info;
+		}
+
+		public ApplicationInfo AddFriendlyDbName(string connectionString, IConfigurationSection friendlyDbNames)
+		{
+			FriendlyDbName = FindFriendlyDbName(connectionString, friendlyDbNames) ?? FriendlyDbName;
+			return this;
+		}
+
+		private static string FindFriendlyDbName(string connectionString, IConfigurationSection friendlyDbNames)
+		{
+			foreach (KeyValuePair<string, string> kv in friendlyDbNames.AsEnumerable(true))
+			{
+				if (connectionString.Contains(kv.Value, StringComparison.OrdinalIgnoreCase))
+				{
+					return kv.Key;
+				}
+			}
+
+			return null;
 		}
 
 		[Obsolete("This method will not work if deterministic builds are enabled for the assembly (the default in in .NET Core)")]
