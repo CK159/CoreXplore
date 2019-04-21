@@ -7,7 +7,7 @@ Built: @AppInfo.ApplicationBuildDate.ToStandardDate() |
 Database: @AppInfo.FriendlyDbName | 
 Request: @(Context.Request.IsLocal() ? "Local" : "Remote") |
 Config: @HostingEnv.EnvironmentName |
-Compilation: @(MetricsHelper.IsDebug() ? "Debug" : "Release") |
+Compilation: @(EnvironmentHelper.IsDebug() ? "Debug" : "Release") |
 Debugger:
 @if (Debugger.IsAttached)
 {

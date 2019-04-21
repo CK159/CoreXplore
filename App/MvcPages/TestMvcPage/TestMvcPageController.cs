@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Db;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App.MVCPages.TestMvcPage

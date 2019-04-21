@@ -1,8 +1,5 @@
-using System.Linq;
-using App.Util;
 using GenericServices;
 using Microsoft.AspNetCore.Mvc;
-using X.PagedList;
 
 namespace App.MvcPages.RequestLog
 {
