@@ -91,9 +91,6 @@ namespace App
 				app.UseExceptionHandler("/Home/Error");
 				app.UseHsts();
 			}
-			
-			//Will return errors in ProblemDetails format for any API and AJAX-type requests
-			//TODO: app.UseApiExceptionHandler();
 
 			app.Use((context, next) =>
 			{

@@ -1,3 +1,5 @@
+using System;
+using App.Util;
 using GenericServices;
 using Microsoft.AspNetCore.Mvc;
 
@@ -47,11 +49,12 @@ namespace App.MvcPages.RequestLog
 			return View(model);
 		}
 
+		[ApiErrorHandler]
 		public IActionResult SaveRequestLog(RequestLogDetailModel item)
 		{
 			_service.UpdateAndSave(item);
 
-			return null; //TODO: Return JSON of some sort here
+			return Ok();
 		}
 	}
 }
