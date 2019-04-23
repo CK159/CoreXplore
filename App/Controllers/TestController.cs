@@ -14,9 +14,24 @@ namespace App.Controllers
 				throw new NotImplementedException();
 			}
 
-			Exception inner = new Exception("some inner exception");
-			Exception in2 = new ApplicationException("Middle exception", inner);
-			throw new Exception("Outer Exception", in2);
+			try
+			{
+				Exception inner = new Exception("some inner exception");
+				throw inner;
+			}
+			catch (Exception e)
+			{
+				Exception in2 = new ApplicationException("Middle exception", e);
+				Exception ex = new Exception("Outer Exception", in2);
+				MyProblematicMethod(ex);
+			}
+
+			return null;
+		}
+
+		private void MyProblematicMethod(Exception ex)
+		{
+			throw ex;
 		}
 	}
 }

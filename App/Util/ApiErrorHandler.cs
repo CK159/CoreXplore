@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
@@ -10,6 +11,7 @@ namespace App.Util
 		public override void OnException(ExceptionContext context)
 		{
 			ILoggerFactory loggerFactory = (ILoggerFactory)context.HttpContext.RequestServices.GetService(typeof(ILoggerFactory));
+			IHostingEnvironment env = (IHostingEnvironment)context.HttpContext.RequestServices.GetService(typeof(IHostingEnvironment));
 
 			if (loggerFactory != null)
 			{
@@ -18,7 +20,7 @@ namespace App.Util
 					context.Exception.GetType().FullName, context.Exception.Message);
 			}
 			
-			ProblemDetailsX pd = new ProblemDetailsX(context.Exception);
+			ProblemDetailsX pd = new ProblemDetailsX(context.Exception, env.IsDevelopment());
 			context.Result = new JsonResult(pd, new JsonSerializerSettings
 			{
 				Formatting = Formatting.Indented
