@@ -80,7 +80,7 @@ namespace App
 				.ConfigureAppConfiguration(c =>
 				{
 					c.SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "Config"));
-					c.AddJsonFile("appsettings.private.json", true, true);
+					c.AddJsonFile("appsettings.Private.json", true, true);
 				})
 				.UseSerilog()
 				.UseStartup<Startup>();

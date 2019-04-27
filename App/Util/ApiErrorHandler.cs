@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -10,8 +11,9 @@ namespace App.Util
 	{
 		public override void OnException(ExceptionContext context)
 		{
-			ILoggerFactory loggerFactory = (ILoggerFactory)context.HttpContext.RequestServices.GetService(typeof(ILoggerFactory));
-			IHostingEnvironment env = (IHostingEnvironment)context.HttpContext.RequestServices.GetService(typeof(IHostingEnvironment));
+			IServiceProvider svc = context.HttpContext.RequestServices;
+			ILoggerFactory loggerFactory = (ILoggerFactory)svc.GetService(typeof(ILoggerFactory));
+			IHostingEnvironment env = (IHostingEnvironment)svc.GetService(typeof(IHostingEnvironment));
 
 			if (loggerFactory != null)
 			{
