@@ -1,0 +1,32 @@
+@{
+	ViewBag.Title = "Vue.js Product Page";
+	Layout = "_DashboardLayout";
+}
+
+@section Styles
+{
+	<link rel="stylesheet" href="/css/site-vue.css"/>
+}
+
+@section Scripts
+{
+	@*Dependencies*@
+	<script src="/lib-ext/vue/vue.js"></script>
+	<script src="/js/utilities.js"></script>
+	<script src="/js/vue-utilities.js"></script>
+
+	@*Page-specific resources*@
+	
+}
+
+@section PageHead
+{
+	<h1>
+		Vue.js Sample Product Page
+	</h1>
+	<ol class="breadcrumb">
+		<li>Home</li>
+		<li>Vue</li>
+		<li class="active">Product</li>
+	</ol>
+}

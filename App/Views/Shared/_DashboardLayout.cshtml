@@ -15,7 +15,7 @@
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
 	<!-- Global CSS -->
-	<link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" asp-append-version="true">
+	<link rel="stylesheet" id="bootstrap-theme-css" href="~/lib/bootstrap/css/bootstrap.min.css" asp-append-version="true">
 	<link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" asp-append-version="true">
 	<link rel="stylesheet" href="~/lib/ionicons/css/ionicons.min.css" asp-append-version="true">
 	<link rel="stylesheet" href="~/lib/admin-lte/css/AdminLTE.min.css" asp-append-version="true">
@@ -260,6 +260,28 @@
 					</li>
 					<li>
 						<a asp-controller="TestMvcPage" asp-action="Index">TestMvcPage</a>
+					</li>
+				</ul>
+			</li>
+			<li class="treeview">
+				<a href="#">
+					<i class="fa fa-link"></i> <span>Vue</span>
+					<span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+					</span>
+				</a>
+				<ul class="treeview-menu">
+					<li>
+						<a asp-controller="Vue" asp-action="Index">Index</a>
+					</li>
+					<li>
+						<a asp-controller="Vue" asp-action="Sample">Sample</a>
+					</li>
+					<li>
+						<a asp-controller="Vue" asp-action="PreviewDetail">Preview Detail</a>
+					</li>
+					<li>
+						<a asp-controller="Vue" asp-action="Product">Product Page</a>
 					</li>
 				</ul>
 			</li>

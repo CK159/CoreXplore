@@ -1,0 +1,76 @@
+.vue-template {
+	display: none;
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+.no-margin {
+	margin: 0;
+}
+
+.inline-block {
+	display: inline-block;
+}
+
+/*Vue.js animations*/
+.fade-enter-active {
+	transition: opacity .2s;
+}
+
+.fade-enter, .fade-leave-to {
+	opacity: 0;
+}
+
+/*Preview-detail component*/
+.pd-container .pd-preview-container {
+	position: relative;
+}
+
+.pd-container .pd-message {
+	margin-top: 10px;
+}
+
+.pd-container .pd-preview-table,
+.pd-container .pd-page-count {
+	margin-bottom: 5px;
+}
+
+.pd-container .pd-pager-controls .btn {
+	padding-left: 0;
+	padding-right: 0;
+	margin-right: 2px;
+	width: 35px;
+}
+
+.pd-container .pd-page-size {
+	float: right;
+}
+
+.pd-container .pd-loading {
+	position: absolute;
+	left: 0;
+	right: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 10;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: repeating-linear-gradient(
+		45deg,
+		#fffae5a0,
+		#fffae5a0 30px,
+		#e0e0e0a0 30px,
+		#e0e0e0a0 60px
+	);
+	animation: opac 0.15s;
+	min-height: 60px;
+}
+
+.pd-container .pd-loading h1 {
+	font-size: 50px;
+	margin: 0;
+	text-align: center;
+}

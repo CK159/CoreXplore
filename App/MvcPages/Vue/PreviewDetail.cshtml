@@ -1,0 +1,32 @@
+@{
+	ViewBag.Title = "Vue.js Preview Detail";
+	Layout = "_DashboardLayout";
+}
+
+@section Styles
+{
+	<link rel="stylesheet" href="/css/site-vue.css"/>
+}
+
+@section Scripts
+{
+	@*Dependencies*@
+	<script src="/lib-ext/vue/vue.js"></script>
+	<script src="/js/utilities.js"></script>
+	<script src="/js/vue-utilities.js"></script>
+
+	@*Page-specific resources*@
+	
+}
+
+@section PageHead
+{
+	<h1>
+		Vue.js Search + Preview + Detail
+	</h1>
+	<ol class="breadcrumb">
+		<li>Home</li>
+		<li>Vue</li>
+		<li class="active">Preview Detail</li>
+	</ol>
+}

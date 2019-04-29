@@ -1,0 +1,25 @@
+@{
+	ViewBag.Title = "Vue.js Index";
+	Layout = "_DashboardLayout";
+}
+
+@section PageHead
+{
+	<h1>
+		Vue.js Sample Pages
+	</h1>
+	<ol class="breadcrumb">
+		<li>Home</li>
+		<li>Vue</li>
+		<li class="active">Index</li>
+	</ol>
+}
+
+<p>These sample pages use Vue.js in the 'browser only' mode, where scripts and components are simply included on the page and no Webpack or other build/transpilation is needed.</p>
+
+<ul>
+	<li><a href="@Url.Action("Sample", "Vue")">Sample Page</a></li>
+	<li><a href="@Url.Action("PreviewDetail", "Vue")">Preview Detail</a></li>
+	<li><a href="@Url.Action("AsyncSelect", "Vue")">Async Select</a></li>
+	<li><a href="@Url.Action("Product", "Vue")">Product</a></li>
+</ul>

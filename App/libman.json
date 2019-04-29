@@ -126,6 +126,13 @@
 		{
 			"library": "Chart.js@2.7.3",
 			"destination": "wwwroot/lib/chart.js"
+		},
+		{
+			"library": "vuejs-datepicker@1.5.4",
+			"destination": "wwwroot/lib/vuejs-datepicker",
+			"files": [
+				"vuejs-datepicker.js"
+			]
 		}
 	]
 }

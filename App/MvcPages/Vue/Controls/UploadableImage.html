@@ -1,0 +1,13 @@
+<div id="uploadable-image-template" class="vue-template">
+	<div class="uploadable-image-container">
+		<img class="img-responsive" :src="'/api/File/' + item.File.FileId" />
+	</div>
+</div>
+<script>
+	Vue.component("uploadable-image", {
+		template: "#uploadable-image-template",
+		props: {
+			value: Boolean
+		}
+	});
+</script>
