@@ -11,7 +11,7 @@ namespace Db
 			builder.Property(b => b.ResourceName).IsRequired().HasMaxLength(128);
 			builder.Property(b => b.ResourceInfo).IsRequired().HasDefaultValue("").HasMaxLength(1024);
 			builder.Property(b => b.SortOrder).IsRequired();
-			builder.Property(b => b.Active).IsRequired().HasDefaultValue(true);
+			builder.Property(b => b.Active).IsRequired().HasDefaultValue(true).ValueGeneratedNever(); //Avoid dumb EF warning about default values
 			builder.Property(b => b.DateCreated).IsRequired().HasDefaultValueSql("getdate()");
 			builder.Property(b => b.ProductId).IsRequired();
 			builder.Property(b => b.FileId).IsRequired();
