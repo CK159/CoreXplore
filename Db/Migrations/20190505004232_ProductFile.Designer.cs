@@ -4,14 +4,16 @@ using Db;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Db.Migrations
 {
     [DbContext(typeof(DbCore))]
-    partial class DbcModelSnapshot : ModelSnapshot
+    [Migration("20190505004232_ProductFile")]
+    partial class ProductFile
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,28 +56,17 @@ namespace Db.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<byte[]>("Content")
-                        .IsRequired();
+                    b.Property<byte[]>("Content");
 
                     b.Property<DateTime>("DateCreated")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("getdate()");
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("FileName")
-                        .IsRequired()
-                        .HasMaxLength(128);
+                    b.Property<string>("FileName");
 
-                    b.Property<string>("FilePath")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(256)
-                        .HasDefaultValue("");
+                    b.Property<string>("FilePath");
 
-                    b.Property<string>("MimeType")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(64)
-                        .HasDefaultValue("");
+                    b.Property<string>("MimeType");
 
                     b.HasKey("FileId");
 
@@ -108,29 +99,17 @@ namespace Db.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("Active")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValue(true);
+                    b.Property<bool>("Active");
 
                     b.Property<DateTime>("DateCreated")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("getdate()");
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("ProductDesc")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(1024)
-                        .HasDefaultValue("");
+                    b.Property<string>("ProductDesc");
 
-                    b.Property<string>("ProductName")
-                        .IsRequired()
-                        .HasMaxLength(128);
+                    b.Property<string>("ProductName");
 
-                    b.Property<string>("ProductRichDesc")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(2048)
-                        .HasDefaultValue("");
+                    b.Property<string>("ProductRichDesc");
 
                     b.HasKey("ProductId");
 
@@ -143,35 +122,27 @@ namespace Db.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("Active")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValue(true);
+                    b.Property<bool>("Active");
 
                     b.Property<DateTime>("DateCreated")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("getdate()");
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2");
 
-                    b.Property<int>("FileId");
+                    b.Property<int?>("ProductId");
 
-                    b.Property<int>("ProductId");
+                    b.Property<int?>("ResourceFileId");
 
-                    b.Property<string>("ResourceInfo")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(1024)
-                        .HasDefaultValue("");
+                    b.Property<string>("ResourceInfo");
 
-                    b.Property<string>("ResourceName")
-                        .IsRequired()
-                        .HasMaxLength(128);
+                    b.Property<string>("ResourceName");
 
                     b.Property<int>("SortOrder");
 
                     b.HasKey("ProductResourceId");
 
-                    b.HasIndex("FileId");
-
                     b.HasIndex("ProductId");
+
+                    b.HasIndex("ResourceFileId");
 
                     b.ToTable("ProductResource");
                 });
@@ -264,15 +235,13 @@ namespace Db.Migrations
 
             modelBuilder.Entity("Db.ProductResource", b =>
                 {
-                    b.HasOne("Db.File", "File")
-                        .WithMany("ProductResources")
-                        .HasForeignKey("FileId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("Db.Product", "Product")
                         .WithMany("ProductResources")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ProductId");
+
+                    b.HasOne("Db.File", "Resource")
+                        .WithMany()
+                        .HasForeignKey("ResourceFileId");
                 });
 #pragma warning restore 612, 618
         }

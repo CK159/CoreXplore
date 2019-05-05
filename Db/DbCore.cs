@@ -21,13 +21,19 @@ namespace Db
 			modelBuilder.RemovePluralizingTableNameConvention();
 
 			//Fluent API configuration for all entities
-			modelBuilder.ApplyConfiguration(new MessageConfiguration());
-			modelBuilder.ApplyConfiguration(new RequestLogConfiguration());
 			modelBuilder.ApplyConfiguration(new AppLogConfiguration());
+			modelBuilder.ApplyConfiguration(new FileConfiguration());
+			modelBuilder.ApplyConfiguration(new MessageConfiguration());
+			modelBuilder.ApplyConfiguration(new ProductConfiguration());
+			modelBuilder.ApplyConfiguration(new ProductResourceConfiguration());
+			modelBuilder.ApplyConfiguration(new RequestLogConfiguration());
 		}
 
-		public DbSet<Message> Messages { get; set; }
-		public DbSet<RequestLog> RequestLogs { get; set; }
 		public DbSet<AppLog> AppLog { get; set; }
+		public DbSet<File> Files { get; set; }
+		public DbSet<Message> Messages { get; set; }
+		public DbSet<Product> Products { get; set; }
+		public DbSet<ProductResource> ProductResources { get; set; }
+		public DbSet<RequestLog> RequestLogs { get; set; }
 	}
 }

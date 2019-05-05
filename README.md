@@ -20,6 +20,7 @@
 * Compatibility between Identity non-core and Identity core (use same account in both frameworks)
 * .Net Core application versioning
 * Serilog with MSSQL, Email, and Windows Event Log logging
+* Vue.js
 
 # General Info
 

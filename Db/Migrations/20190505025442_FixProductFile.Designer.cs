@@ -4,14 +4,16 @@ using Db;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Db.Migrations
 {
     [DbContext(typeof(DbCore))]
-    partial class DbcModelSnapshot : ModelSnapshot
+    [Migration("20190505025442_FixProductFile")]
+    partial class FixProductFile
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,8 +56,7 @@ namespace Db.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<byte[]>("Content")
-                        .IsRequired();
+                    b.Property<byte[]>("Content");
 
                     b.Property<DateTime>("DateCreated")
                         .ValueGeneratedOnAdd()
@@ -118,9 +119,7 @@ namespace Db.Migrations
 
                     b.Property<string>("ProductDesc")
                         .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(1024)
-                        .HasDefaultValue("");
+                        .HasMaxLength(1024);
 
                     b.Property<string>("ProductName")
                         .IsRequired()
@@ -128,9 +127,7 @@ namespace Db.Migrations
 
                     b.Property<string>("ProductRichDesc")
                         .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(2048)
-                        .HasDefaultValue("");
+                        .HasMaxLength(2048);
 
                     b.HasKey("ProductId");
 
@@ -157,9 +154,7 @@ namespace Db.Migrations
 
                     b.Property<string>("ResourceInfo")
                         .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(1024)
-                        .HasDefaultValue("");
+                        .HasMaxLength(1024);
 
                     b.Property<string>("ResourceName")
                         .IsRequired()
@@ -265,7 +260,7 @@ namespace Db.Migrations
             modelBuilder.Entity("Db.ProductResource", b =>
                 {
                     b.HasOne("Db.File", "File")
-                        .WithMany("ProductResources")
+                        .WithMany()
                         .HasForeignKey("FileId")
                         .OnDelete(DeleteBehavior.Cascade);
 
