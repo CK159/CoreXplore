@@ -141,6 +141,14 @@
 				"vue.js",
 				"vue.min.js"
 			]
+		},
+		{
+			"library": "vuejs-datepicker@1.5.4",
+			"destination": "wwwroot/lib/vuejs-datepicker",
+			"files": [
+				"vuejs-datepicker.js",
+				"vuejs-datepicker.min.js"
+			]
 		}
 	]
 }
