@@ -8,7 +8,6 @@ Vue.component("preview-detail", {
 	props: {
 		search: Object, //Search and filter fields to pass to preview load api
 		pk: String, //The primary key field in the detail object (for loading and saving details)
-		newDetailKey: String, //Field in newDto which will be used for creating new record
 		apiUrl: String, //Base URL to call for loading and saving
 		//Optionally override default URL actions. See defaultApiEndpoints.
 		//{previewLoad: "", detailLoad: "", detailSave: "", detailDelete: "", dtoNew: ""}
@@ -207,7 +206,7 @@ Vue.component("preview-detail", {
 		detailNew: function () {
 			this.clearMessage();
 			this.detailState = "new";
-			this.detail = Object.assign({}, this.newDto[this.newDetailKey]);
+			this.detail = Object.assign({}, this.newDto);
 		},
 		detailDelete: function () {
 			this.clearMessage();
@@ -311,7 +310,7 @@ Vue.component("preview-detail", {
 				vm.newDto = data;
 				
 				//Populate detail with default data to prevent undefined data references
-				vm.detail = Object.assign({}, vm.newDto[vm.newDetailKey]);
+				vm.detail = Object.assign({}, vm.newDto);
 				vm.$emit("initialLoad")
 			}
 		});

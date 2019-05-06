@@ -55,7 +55,6 @@
 				v-bind:detail.sync="detail"
 				v-bind:new-dto.sync="newDto"
 				v-bind:pk="pk"
-				v-bind:new-detail-key="newDetailKey"
 				v-bind:api-url="apiUrl"
 				ref="pdRef">
 
@@ -125,16 +124,16 @@
 							<tr
 								class="pointer"
 								v-for="item in preview"
-								:key="item.PreviewDetailId"
-								v-on:click="detailLoad(item.PreviewDetailId)"
-								v-bind:class="{'info': itemActive(item.PreviewDetailId)}">
+								:key="item.previewDetailId"
+								v-on:click="detailLoad(item.previewDetailId)"
+								v-bind:class="{'info': itemActive(item.previewDetailId)}">
 	
-								<td>{{item.Date | formatDate}}</td> @*Use custom formatter to display date as standard mm/dd/yyyy*@
-								<td>{{item.PreviewDetailId}}</td>
-								<td>{{item.Name}}</td>
-								<td>{{item.Categories.join(", ")}}</td>
-								<td>{{item.Codes.join(", ")}}</td>
-								<td><colored-check :value="item.Active"></colored-check></td>
+								<td>{{item.date | formatDate}}</td> @*Use custom formatter to display date as standard mm/dd/yyyy*@
+								<td>{{item.previewDetailId}}</td>
+								<td>{{item.name}}</td>
+								<td>{{item.categories.join(", ")}}</td>
+								<td>{{item.codes.join(", ")}}</td>
+								<td><colored-check :value="item.active"></colored-check></td>
 							</tr>
 						</tbody>
 					</table>
@@ -145,27 +144,29 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Name</label>
-								<input class="form-control" v-model="detail.Name"/>
+								<input class="form-control" v-model="detail.name"/>
 							</div>
+							
 							<div class="form-group">
 								<label>Description</label>
-								<input class="form-control" v-model="detail.Description"/>
-							</div>
-							<div class="form-group">
-								<label>Active</label>
-								<div class="checkbox">
-									<label>
-										<input type="checkbox" v-model="detail.Active"/>
-										Item Active
-									</label>
-								</div>
+								<input class="form-control" v-model="detail.description"/>
 							</div>
 						</div>
 
 						<div class="col-md-6">
 							<div class="form-group">
+								<label>Active</label>
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" v-model="detail.active"/>
+										Item Active
+									</label>
+								</div>
+							</div>
+							
+							<div class="form-group">
 								<label>Categories</label>
-								<select class="form-control" v-model="detail.CategoryIds" multiple>
+								<select class="form-control" v-model="detail.categoryIds" multiple>
 									<option v-for="item in categories" :value="item.value">{{item.name}}</option>
 								</select>
 							</div>

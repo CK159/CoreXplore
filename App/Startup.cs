@@ -75,6 +75,7 @@ namespace App
 		private void ConfigureDi(IServiceCollection services)
 		{
 			services.AddScoped<RequestLogService>();
+			services.AddScoped<LoaderService>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

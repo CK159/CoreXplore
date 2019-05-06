@@ -12,9 +12,8 @@ var vueApp = new Vue({
 			preview: [],
 			detail: {},
 			newDto: {},
-			pk: "PreviewDetailId",
-			newDetailKey: "PreviewDetail",
-			apiUrl: "/ApiThingyController.cs/PreviewDetail/",
+			pk: "previewDetailId",
+			apiUrl: "/PreviewDetail/",
 			categories: []
 		}
 	},
