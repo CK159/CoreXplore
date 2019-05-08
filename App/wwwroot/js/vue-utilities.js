@@ -1,5 +1,5 @@
 //Helper functions
-var globalAjaxDelay = 350;
+var globalAjaxDelay = 300;
 
 // Global filter used to format dates for display in preview table and elsewhere
 Vue.filter("formatDate", function (value) {

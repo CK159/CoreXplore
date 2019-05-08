@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp2.2</TargetFramework>
-		<Version>1.2.13-dev</Version>
+		<Version>1.3.0-dev</Version>
 		<LangVersion>latest</LangVersion>
     </PropertyGroup>
 
@@ -46,6 +46,13 @@
 		</Content>
 		<!--Never deploy private config file-->
 		<Content Update="Config\appsettings.Private.json">
+			<CopyToPublishDirectory>Never</CopyToPublishDirectory>
+		</Content>
+		<!--Never deploy some of the data files-->
+		<Content Update="nosql-db\records.json">
+			<CopyToPublishDirectory>Never</CopyToPublishDirectory>
+		</Content>
+		<Content Update="nosql-db\preview-detail.json">
 			<CopyToPublishDirectory>Never</CopyToPublishDirectory>
 		</Content>
 	</ItemGroup>

@@ -17,7 +17,6 @@ namespace App.Controllers
 			_loader = loader;
 		}
 		
-		[HttpGet, HttpPost]
 		[Route("Preview")]
 		public PagedResult<IQueryable<PreviewDetailDTO>> PreviewDetailPreview(
 			int? currentPage,
@@ -77,7 +76,6 @@ namespace App.Controllers
 			return PagedResult<PreviewDetailDTO>.AutoPage(items, currentPage, pageSize);
 		}
 
-		[HttpGet, HttpPost]
 		[Route("Load")]
 		public PreviewDetailEntity PreviewDetailLoad(int PreviewDetailId)
 		{
@@ -112,21 +110,19 @@ namespace App.Controllers
 			return entity;
 		}
 
-		[HttpGet, HttpPost]
 		[Route("Delete")]
-		public void PreviewDetailDelete(int PreviewDetailId)
+		public void PreviewDetailDelete(int previewDetailId)
 		{
 			IEnumerable<PreviewDetailEntity> all = _loader.LoadFromFile<List<PreviewDetailEntity>>("preview-detail")
-				.Where(e => e.PreviewDetailId != PreviewDetailId);
+				.Where(e => e.PreviewDetailId != previewDetailId);
 			_loader.SaveToFile(all, "preview-detail");
 		}
 
 		//TODO: way of annotating default value on DTOs themselves and having generic method to return default
-		[HttpGet, HttpPost]
 		[Route("New")]
-		public JsonResult PreviewDetailNew()
+		public Dictionary<string, object> PreviewDetailNew()
 		{
-			return new JsonResult(PreviewDetailEntity.CreateDefault());
+			return new Dictionary<string, object> {{"previewDetail", PreviewDetailEntity.CreateDefault()}};
 		}
 	}
 }

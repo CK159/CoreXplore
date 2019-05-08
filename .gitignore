@@ -9,3 +9,4 @@ bin/
 packages
 appsettings.Private.json
 appsettings.Production.json
+App/nosql-db/preview-detail.json

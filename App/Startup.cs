@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using App.MvcPages.RequestLog;
+using App.Services;
 using App.Util;
 using Db;
 using GenericServices.Setup;
@@ -76,6 +77,7 @@ namespace App
 		{
 			services.AddScoped<RequestLogService>();
 			services.AddScoped<LoaderService>();
+			services.AddScoped<ProductManager>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

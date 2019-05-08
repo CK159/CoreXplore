@@ -14,9 +14,18 @@
 	<script src="/lib/vue/vue.js"></script>
 	<script src="/js/utilities.js"></script>
 	<script src="/js/vue-utilities.js"></script>
+	<script src="/lib/vuejs-datepicker/vuejs-datepicker.js"></script>
+	<script src="/lib-ext/v-tooltip/v-tooltip.min.js"></script>
+	<htmlinclude path="MvcPages/Vue/Controls/AlertPopup.html" />
+	<htmlinclude path="MvcPages/Vue/Controls/modal.html" />
+	<htmlinclude path="MvcPages/Vue/Controls/PreviewDetail.html" />
+	<htmlinclude path="MvcPages/Vue/Controls/ClearBtn.html" />
+	<htmlinclude path="MvcPages/Vue/Controls/DualCheckboxes.html" />
+	<htmlinclude path="MvcPages/Vue/Controls/ColoredCheck.html" />
+	<htmlinclude path="MvcPages/Vue/Controls/AsyncDropdown.html" />
 
 	@*Page-specific resources*@
-	
+	<script src="/Vue/Product.cshtml.js"></script>
 }
 
 @section PageHead
@@ -30,3 +39,169 @@
 		<li class="active">Product</li>
 	</ol>
 }
+
+<div id="vueContainer">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<div class="panel-title">Manage Products - Entity Framework</div>
+		</div>
+
+		<div class="panel-body">
+			<preview-detail
+				v-bind:search="search"
+				v-bind:preview.sync="preview"
+				v-bind:detail.sync="detail"
+				v-bind:new-dto.sync="newDto"
+				v-bind:pk="pk"
+				v-bind:new-detail-key="newDetailKey"
+				v-bind:api-url="apiUrl"
+				ref="pdRef">
+
+				<div slot="search">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label>Product Name</label>
+								<clear-btn v-bind:value.sync="search.productName"></clear-btn>
+								<input class="form-control" v-model="search.productName"/>
+							</div>
+							<div class="form-group">
+								<label>Description</label>
+								<clear-btn v-bind:value.sync="search.productDesc"></clear-btn>
+								<input class="form-control" v-model="search.productName"/>
+							</div>
+						</div>
+
+						<div class="col-md-4">
+							<div class="form-group">
+								<label>In Catalog</label>
+								<clear-btn v-bind:value.sync="search.catalogId" v-bind:default="null"></clear-btn>
+								<async-dropdown 
+									v-model="search.catalogId"
+									friendly-name="Catalog"
+									default-text="Any"
+									api-url="/api/select/catalogSelect"
+									api-key="CatalogId">
+								</async-dropdown>
+							</div>
+						</div>
+
+						<div class="col-md-4">
+							<label>Active</label>
+							<clear-btn v-bind:value.sync="search.active" v-bind:default="true"></clear-btn>
+							<dual-checkboxes v-bind:value.sync="search.active"></dual-checkboxes>
+							
+							<button type="button" class="btn btn-danger btn-xs pull-right" v-on:click="resetSearch">Clear</button>
+							<label>&nbsp;</label>
+							<div class="form-group">
+								<button type="button" class="btn btn-primary btn-block" v-on:click="refreshSearch">Search</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div slot="preview">
+					<table class="table table-hover table-bordered table-striped table-condensed pd-preview-table">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Name</th>
+								<th>Catalogs</th>
+								<th>Active</th>
+							</tr>
+						</thead>
+						<tbody>
+						@*Highlight active row*@
+						<tr
+							class="pointer"
+							v-for="item in preview"
+							:key="item.productId"
+							v-on:click="detailLoad(item.productId)"
+							:class="{'info': itemActive(item.productId)}">
+
+							<td>{{item.productId}}</td> @*Use custom formatter to display date as standard mm/dd/yyyy*@
+							<td>{{item.productName}}</td>
+							<td>{{item.catalogs.join(", ")}}</td>
+							<td><colored-check :value="item.active"></colored-check></td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div slot="detail">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Name</label>
+								<input class="form-control" v-model="detail.productName"/>
+							</div>
+							<div class="form-group">
+								<label>Description</label>
+								<input class="form-control" v-model="detail.productDesc"/>
+							</div>
+							<div class="form-group">
+								<label>Active</label>
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" v-model="detail.active"/>
+										Item Active
+									</label>
+								</div>
+							</div>
+							@*<div class="form-group">
+								<label>Product Type</label>
+								<async-dropdown 
+									v-model="detail.productTypeId"
+									friendly-name="Product Type"
+									api-url="/api/select/productTypeSelect"
+									api-key="productTypeId">
+								</async-dropdown>
+							</div>*@
+						</div>
+
+						<div class="col-md-6">
+							<table class="table table-hover table-bordered table-striped table-condensed">
+								<thead>
+									<tr>
+										<th>Catalog</th>
+										<th>Store</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr v-for="item in detail.catalogs" :key="item.catalogId">
+										<td>
+											<div class="checkbox no-margin" :class="{'text-muted': !item.active}">
+												<label>
+													<input type="checkbox" v-model="item.assigned"/>
+													{{item.active ? "" : "(inactive)"}}
+													{{item.catalogName}}
+												</label>
+											</div>
+										</td>
+										<td>{{item.storeName}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					
+					<h3>Product Image Resources ({{detail.resources ? detail.resources.length : 0}})</h3>
+					<div class="form-group">
+						Add Resources <input type="file" multiple v-on:change="fileAdded"/>
+					</div>
+					
+					<div class="row">
+						<div class="col-lg-3 col-md-4 col-sm-6"
+						     v-for="item in detail.resources"
+						     :key="item.productTypeId">
+							<img class="img-responsive" :src="smartSrc(item.file)" />
+						</div>
+					</div>
+				</div>
+			</preview-detail>
+		</div>
+	</div>
+	
+	@*Will display any messages or errors passed to it via popup-alert, popup-error, popup-validation events*@
+	<alert-popup></alert-popup>
+</div>

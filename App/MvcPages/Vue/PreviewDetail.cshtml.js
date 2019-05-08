@@ -13,6 +13,7 @@ var vueApp = new Vue({
 			detail: {},
 			newDto: {},
 			pk: "previewDetailId",
+			newDetailKey: "previewDetail",
 			apiUrl: "/PreviewDetail/",
 			categories: []
 		}
