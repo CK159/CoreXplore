@@ -21,6 +21,11 @@ namespace App.Util
 
 		public static PagedResult<IQueryable<U>> AutoPage<U>(IQueryable<U> q, int? currentPage, int? pageSize)
 		{
+			if (q == null)
+			{
+				throw new ArgumentNullException(nameof(q));
+			}
+			
 			//TODO: Generic way to not evaluate query twice?
 			//Like https://stackoverflow.com/questions/7767409/better-way-to-query-a-page-of-data-and-get-total-count-in-entity-framework-4-1
 			int recordCount = q.Count();

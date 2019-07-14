@@ -41,7 +41,7 @@ namespace App.Controllers
 
 			// 2. Filter
 			if (!string.IsNullOrEmpty(name))
-				qry = qry.Where(e => e.previewDetail.Name.IndexOf(name, StringComparison.OrdinalIgnoreCase) >= 0);
+				qry = qry.Where(e => e.previewDetail.Name != null && e.previewDetail.Name.IndexOf(name, StringComparison.OrdinalIgnoreCase) >= 0);
 
 			if (categoryId != null)
 				qry = qry.Where(e => e.categories.Where(w => w != null).Any(f => f.CategoryId == categoryId));
