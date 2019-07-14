@@ -2,22 +2,22 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp2.2</TargetFramework>
-		<Version>1.3.0-dev</Version>
+		<Version>1.4.0-dev</Version>
 		<LangVersion>latest</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="EfCore.GenericServices" Version="2.0.2" />
         <PackageReference Include="EfCore.GenericServices.AspNetCore" Version="3.0.2" />
-        <PackageReference Include="JetBrains.Annotations" Version="2019.1.1" />
+        <PackageReference Include="JetBrains.Annotations" Version="2019.1.3" />
         <PackageReference Include="Microsoft.AspNetCore.App" />
         <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
         <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
-        <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="1.0.172" />
+        <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.0.48" />
         <PackageReference Include="Serilog" Version="2.8.0" />
         <PackageReference Include="Serilog.AspNetCore" Version="2.1.1" />
-        <PackageReference Include="Serilog.Exceptions" Version="5.0.0" />
-        <PackageReference Include="Serilog.Settings.Configuration" Version="3.0.2-dev-00187" />
+        <PackageReference Include="Serilog.Exceptions" Version="5.3.1" />
+        <PackageReference Include="Serilog.Settings.Configuration" Version="3.1.0" />
         <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
         <PackageReference Include="Serilog.Sinks.Email" Version="2.3.1-dev-00092" />
         <PackageReference Include="Serilog.Sinks.EventLog" Version="3.1.0" />

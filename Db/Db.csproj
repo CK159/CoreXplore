@@ -2,15 +2,15 @@
 
     <PropertyGroup>
 		<TargetFrameworks>netcoreapp2.2</TargetFrameworks>
-		<Version>1.3.0-dev</Version>
+		<Version>1.4.0-dev</Version>
 		<LangVersion>latest</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.2.0" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.4" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.4" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.4" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.6" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.6" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.6" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.6" />
       <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
       <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
