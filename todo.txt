@@ -14,9 +14,9 @@ Fix EF Compare unit test
 Make JSON in email notifications have friendly formatting with newlines and indentation
 Enum-based security
 Bootstrap popup for errors and messages
-Add Vue.js stuff
 RequestPath should be top-level column for logging
 
+DONE - Add Vue.js stuff
 DONE - Serilog controller action error handler - https://github.com/datalust/serilog-middleware-example/blob/master/src/Datalust.SerilogMiddlewareExample/Diagnostics/SerilogMiddleware.cs
 DONE - Use dependency injection for application info
 DONE - Fix "The description for Event ID XXXX from source CoreXplore App cannot be found" when logging to Windows event log
